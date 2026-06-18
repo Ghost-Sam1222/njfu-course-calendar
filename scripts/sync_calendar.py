@@ -14,6 +14,7 @@ from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
 from typing import Any, Optional
 from urllib.parse import urljoin
+from urllib.request import Request, urlopen
 
 DEFAULT_BASE_URL = "https://jwxt.njfu.edu.cn"
 DEFAULT_TZ = "Asia/Shanghai"
@@ -22,6 +23,9 @@ LOGIN_ENTRY_URL = "https://jwxt.njfu.edu.cn/jsxsd/framework/xsMainV.jsp"
 DEFAULT_EXAM_URLS = [
     "https://jwxt.njfu.edu.cn/jsxsd/xsks/xsksap_list.do",
     "https://jwxt.njfu.edu.cn/jsxsd/xsks/xsksap_list",
+]
+DEFAULT_HOLIDAY_ICS_URLS = [
+    "https://raw.githubusercontent.com/YangH9/ChinaCalendar/master/cal_holiday_1.ics",
 ]
 SECTION_TIMES = {
     1: ("08:00", "08:45"),
@@ -57,6 +61,8 @@ class Settings:
     output_json: Path
     provider: str
     excluded_dates: frozenset[date]
+    auto_exclude_holidays: bool
+    holiday_ics_urls: tuple[str, ...]
     include_exams: bool
     exam_urls: tuple[str, ...]
 
@@ -143,6 +149,12 @@ def parse_url_list(value: Optional[str]) -> tuple[str, ...]:
     return tuple(part.strip() for part in re.split(r"[,，\n]", value) if part.strip())
 
 
+def parse_holiday_url_list(value: Optional[str]) -> tuple[str, ...]:
+    if not value:
+        return tuple(DEFAULT_HOLIDAY_ICS_URLS)
+    return tuple(part.strip() for part in re.split(r"[,，\n]", value) if part.strip())
+
+
 def load_dotenv(path: Path) -> None:
     if not path.exists():
         return
@@ -176,6 +188,8 @@ def load_settings(args: argparse.Namespace) -> Settings:
             env("EXCLUDE_DATES", env("SKIP_DATES")),
             "EXCLUDE_DATES",
         ),
+        auto_exclude_holidays=parse_bool(env("AUTO_EXCLUDE_HOLIDAYS"), default=True),
+        holiday_ics_urls=parse_holiday_url_list(env("HOLIDAY_ICS_URLS", env("HOLIDAY_ICS_URL"))),
         include_exams=parse_bool(env("INCLUDE_EXAMS"), default=False),
         exam_urls=parse_url_list(env("EXAM_URLS", env("EXAM_URL"))),
     )
@@ -618,13 +632,108 @@ def course_rows_to_events(settings: Settings, rows: list[dict[str, Any]]) -> lis
 
 
 def filter_excluded_dates(settings: Settings, events: list[CourseEvent]) -> list[CourseEvent]:
-    if not settings.excluded_dates:
+    excluded_dates = set(settings.excluded_dates)
+    if settings.auto_exclude_holidays:
+        excluded_dates.update(fetch_holiday_dates(settings))
+    if not excluded_dates:
         return events
     return [
         event
         for event in events
-        if event.event_type != "course" or event.starts_at.date() not in settings.excluded_dates
+        if event.event_type != "course" or event.starts_at.date() not in excluded_dates
     ]
+
+
+def fetch_holiday_dates(settings: Settings) -> set[date]:
+    dates: set[date] = set()
+    for url in settings.holiday_ics_urls:
+        try:
+            text = fetch_text(url)
+            dates.update(parse_holiday_ics_dates(text))
+        except Exception as exc:  # pragma: no cover - depends on external service.
+            print(f"warning: could not fetch holiday calendar {url}: {exc}", file=sys.stderr)
+    if dates:
+        term_start = settings.first_monday
+        term_end = settings.first_monday + timedelta(weeks=settings.term_weeks, days=-1)
+        dates = {item for item in dates if term_start <= item <= term_end}
+        print(f"Loaded {len(dates)} holiday skip dates from external calendar.")
+    return dates
+
+
+def fetch_text(url: str) -> str:
+    request = Request(
+        url,
+        headers={
+            "User-Agent": "course-calendar-sync/1.0 (+https://github.com/Ghost-Sam1222/njfu-course-calendar)",
+            "Accept": "text/calendar,text/plain,*/*",
+        },
+    )
+    with urlopen(request, timeout=30) as response:
+        charset = response.headers.get_content_charset() or "utf-8"
+        return response.read().decode(charset, errors="replace")
+
+
+def unfold_ics_lines(text: str) -> list[str]:
+    lines: list[str] = []
+    for raw_line in text.replace("\r\n", "\n").replace("\r", "\n").split("\n"):
+        if raw_line.startswith((" ", "\t")) and lines:
+            lines[-1] += raw_line[1:]
+        elif raw_line:
+            lines.append(raw_line)
+    return lines
+
+
+def split_ics_property(line: str) -> tuple[str, str]:
+    if ":" not in line:
+        return "", ""
+    name, value = line.split(":", 1)
+    return name.split(";", 1)[0].upper(), value.strip()
+
+
+def parse_ics_date_value(value: str) -> Optional[date]:
+    match = re.match(r"(\d{4})(\d{2})(\d{2})", value.strip())
+    if not match:
+        return None
+    year, month, day = (int(item) for item in match.groups())
+    return date(year, month, day)
+
+
+def expand_date_span(start: date, end_exclusive: Optional[date]) -> set[date]:
+    if end_exclusive is None or end_exclusive <= start:
+        end_exclusive = start + timedelta(days=1)
+    dates: set[date] = set()
+    cursor = start
+    while cursor < end_exclusive:
+        dates.add(cursor)
+        cursor += timedelta(days=1)
+    return dates
+
+
+def parse_holiday_ics_dates(text: str) -> set[date]:
+    dates: set[date] = set()
+    event: dict[str, str] = {}
+    in_event = False
+    for line in unfold_ics_lines(text):
+        if line == "BEGIN:VEVENT":
+            event = {}
+            in_event = True
+            continue
+        if line == "END:VEVENT":
+            summary = event.get("SUMMARY", "")
+            if "假期" in summary and "补班" not in summary:
+                start = parse_ics_date_value(event.get("DTSTART", ""))
+                end = parse_ics_date_value(event.get("DTEND", ""))
+                if start:
+                    dates.update(expand_date_span(start, end))
+            event = {}
+            in_event = False
+            continue
+        if not in_event:
+            continue
+        name, value = split_ics_property(line)
+        if name in {"SUMMARY", "DTSTART", "DTEND"}:
+            event[name] = value
+    return dates
 
 
 def stable_event_uid(event: CourseEvent) -> str:

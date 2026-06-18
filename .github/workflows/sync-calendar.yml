@@ -40,6 +40,8 @@ jobs:
           CALENDAR_TIMEZONE: Asia/Shanghai
           JW_PROVIDER: qz_browser
           EXCLUDE_DATES: ${{ vars.EXCLUDE_DATES }}
+          AUTO_EXCLUDE_HOLIDAYS: ${{ vars.AUTO_EXCLUDE_HOLIDAYS || 'true' }}
+          HOLIDAY_ICS_URLS: ${{ vars.HOLIDAY_ICS_URLS }}
           INCLUDE_EXAMS: ${{ vars.INCLUDE_EXAMS || 'false' }}
           EXAM_URLS: ${{ vars.EXAM_URLS }}
         run: python scripts/sync_calendar.py
