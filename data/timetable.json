@@ -1,0 +1,3557 @@
+[
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-03-02T08:00:00",
+    "ends_at": "2026-03-02T09:35:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-03-02T13:30:00",
+    "ends_at": "2026-03-02T15:05:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-03-02T15:20:00",
+    "ends_at": "2026-03-02T16:55:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-3(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-03-03T08:00:00",
+    "ends_at": "2026-03-03T09:35:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-03-03T09:50:00",
+    "ends_at": "2026-03-03T11:25:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-03-03T13:30:00",
+    "ends_at": "2026-03-03T15:05:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-03-04T08:00:00",
+    "ends_at": "2026-03-04T09:35:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-03-04T13:30:00",
+    "ends_at": "2026-03-04T15:05:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "Python程序基础",
+    "teacher": "徐仁杰",
+    "location": "淮安校区A305",
+    "starts_at": "2026-03-05T08:00:00",
+    "ends_at": "2026-03-05T10:35:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[01-02-03节]",
+      "sections": [
+        1,
+        2,
+        3
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-03-05T13:30:00",
+    "ends_at": "2026-03-05T15:05:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-03-05T15:20:00",
+    "ends_at": "2026-03-05T16:55:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-03-06T09:50:00",
+    "ends_at": "2026-03-06T11:25:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区A103",
+    "starts_at": "2026-03-06T13:30:00",
+    "ends_at": "2026-03-06T16:55:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-7,9-13(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "批判性思维[社会认知类]",
+    "teacher": "李广博",
+    "location": "淮安校区B203",
+    "starts_at": "2026-03-08T18:30:00",
+    "ends_at": "2026-03-08T20:55:00",
+    "week": 1,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 7
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-03-09T08:00:00",
+    "ends_at": "2026-03-09T09:35:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-03-09T13:30:00",
+    "ends_at": "2026-03-09T15:05:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-03-09T15:20:00",
+    "ends_at": "2026-03-09T16:55:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-3(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-03-10T08:00:00",
+    "ends_at": "2026-03-10T09:35:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-03-10T09:50:00",
+    "ends_at": "2026-03-10T11:25:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-03-10T13:30:00",
+    "ends_at": "2026-03-10T15:05:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-03-11T08:00:00",
+    "ends_at": "2026-03-11T09:35:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-03-11T13:30:00",
+    "ends_at": "2026-03-11T15:05:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "Python程序基础",
+    "teacher": "徐仁杰",
+    "location": "淮安校区A305",
+    "starts_at": "2026-03-12T08:00:00",
+    "ends_at": "2026-03-12T10:35:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[01-02-03节]",
+      "sections": [
+        1,
+        2,
+        3
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-03-12T13:30:00",
+    "ends_at": "2026-03-12T15:05:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-03-12T15:20:00",
+    "ends_at": "2026-03-12T16:55:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-03-13T09:50:00",
+    "ends_at": "2026-03-13T11:25:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区A103",
+    "starts_at": "2026-03-13T13:30:00",
+    "ends_at": "2026-03-13T16:55:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-7,9-13(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "批判性思维[社会认知类]",
+    "teacher": "李广博",
+    "location": "淮安校区B203",
+    "starts_at": "2026-03-15T18:30:00",
+    "ends_at": "2026-03-15T20:55:00",
+    "week": 2,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 7
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-03-16T08:00:00",
+    "ends_at": "2026-03-16T09:35:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-03-16T13:30:00",
+    "ends_at": "2026-03-16T15:05:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-03-16T15:20:00",
+    "ends_at": "2026-03-16T16:55:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-3(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-03-17T08:00:00",
+    "ends_at": "2026-03-17T09:35:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-03-17T09:50:00",
+    "ends_at": "2026-03-17T11:25:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-03-17T13:30:00",
+    "ends_at": "2026-03-17T15:05:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "工程经济管理概论[社会认知类] (分组01)",
+    "teacher": "房银海,马欣,汪海燕,王妹,殷婧钰",
+    "location": "淮安校区在线教学",
+    "starts_at": "2026-03-17T18:30:00",
+    "ends_at": "2026-03-17T20:55:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "3-9(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-03-18T08:00:00",
+    "ends_at": "2026-03-18T09:35:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-03-18T13:30:00",
+    "ends_at": "2026-03-18T15:05:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "Python程序基础",
+    "teacher": "徐仁杰",
+    "location": "淮安校区A305",
+    "starts_at": "2026-03-19T08:00:00",
+    "ends_at": "2026-03-19T10:35:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[01-02-03节]",
+      "sections": [
+        1,
+        2,
+        3
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-03-19T13:30:00",
+    "ends_at": "2026-03-19T15:05:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-03-19T15:20:00",
+    "ends_at": "2026-03-19T16:55:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-03-20T09:50:00",
+    "ends_at": "2026-03-20T11:25:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区A103",
+    "starts_at": "2026-03-20T13:30:00",
+    "ends_at": "2026-03-20T16:55:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-7,9-13(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "批判性思维[社会认知类]",
+    "teacher": "李广博",
+    "location": "淮安校区B203",
+    "starts_at": "2026-03-22T18:30:00",
+    "ends_at": "2026-03-22T20:55:00",
+    "week": 3,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 7
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-03-23T08:00:00",
+    "ends_at": "2026-03-23T09:35:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-03-23T13:30:00",
+    "ends_at": "2026-03-23T15:05:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-03-24T08:00:00",
+    "ends_at": "2026-03-24T09:35:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-03-24T09:50:00",
+    "ends_at": "2026-03-24T11:25:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-03-24T13:30:00",
+    "ends_at": "2026-03-24T15:05:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "工程经济管理概论[社会认知类] (分组01)",
+    "teacher": "房银海,马欣,汪海燕,王妹,殷婧钰",
+    "location": "淮安校区在线教学",
+    "starts_at": "2026-03-24T18:30:00",
+    "ends_at": "2026-03-24T20:55:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "3-9(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-03-25T08:00:00",
+    "ends_at": "2026-03-25T09:35:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-03-25T09:50:00",
+    "ends_at": "2026-03-25T11:25:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-03-25T13:30:00",
+    "ends_at": "2026-03-25T15:05:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-03-25T15:20:00",
+    "ends_at": "2026-03-25T16:55:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "Python程序基础",
+    "teacher": "徐仁杰",
+    "location": "淮安校区A305",
+    "starts_at": "2026-03-26T08:00:00",
+    "ends_at": "2026-03-26T10:35:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[01-02-03节]",
+      "sections": [
+        1,
+        2,
+        3
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-03-26T13:30:00",
+    "ends_at": "2026-03-26T15:05:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-03-26T15:20:00",
+    "ends_at": "2026-03-26T16:55:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-03-27T09:50:00",
+    "ends_at": "2026-03-27T11:25:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区A103",
+    "starts_at": "2026-03-27T13:30:00",
+    "ends_at": "2026-03-27T16:55:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-7,9-13(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "批判性思维[社会认知类]",
+    "teacher": "李广博",
+    "location": "淮安校区B203",
+    "starts_at": "2026-03-29T18:30:00",
+    "ends_at": "2026-03-29T20:55:00",
+    "week": 4,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 7
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-03-30T08:00:00",
+    "ends_at": "2026-03-30T09:35:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-03-30T13:30:00",
+    "ends_at": "2026-03-30T15:05:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-03-31T08:00:00",
+    "ends_at": "2026-03-31T09:35:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-03-31T09:50:00",
+    "ends_at": "2026-03-31T11:25:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-03-31T13:30:00",
+    "ends_at": "2026-03-31T15:05:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "工程经济管理概论[社会认知类] (分组01)",
+    "teacher": "房银海,马欣,汪海燕,王妹,殷婧钰",
+    "location": "淮安校区在线教学",
+    "starts_at": "2026-03-31T18:30:00",
+    "ends_at": "2026-03-31T20:55:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "3-9(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-04-01T08:00:00",
+    "ends_at": "2026-04-01T09:35:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-04-01T09:50:00",
+    "ends_at": "2026-04-01T11:25:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-04-01T13:30:00",
+    "ends_at": "2026-04-01T15:05:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-04-01T15:20:00",
+    "ends_at": "2026-04-01T16:55:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "Python程序基础",
+    "teacher": "徐仁杰",
+    "location": "淮安校区A305",
+    "starts_at": "2026-04-02T08:00:00",
+    "ends_at": "2026-04-02T10:35:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[01-02-03节]",
+      "sections": [
+        1,
+        2,
+        3
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-04-02T13:30:00",
+    "ends_at": "2026-04-02T15:05:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-04-02T15:20:00",
+    "ends_at": "2026-04-02T16:55:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-04-03T09:50:00",
+    "ends_at": "2026-04-03T11:25:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区A103",
+    "starts_at": "2026-04-03T13:30:00",
+    "ends_at": "2026-04-03T16:55:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-7,9-13(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "批判性思维[社会认知类]",
+    "teacher": "李广博",
+    "location": "淮安校区B203",
+    "starts_at": "2026-04-05T18:30:00",
+    "ends_at": "2026-04-05T20:55:00",
+    "week": 5,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 7
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-04-06T08:00:00",
+    "ends_at": "2026-04-06T09:35:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-04-06T13:30:00",
+    "ends_at": "2026-04-06T15:05:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术实验A",
+    "teacher": "宋军",
+    "location": "电工电子实验室(A501-511)",
+    "starts_at": "2026-04-06T15:20:00",
+    "ends_at": "2026-04-06T16:55:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "6-13(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-04-07T08:00:00",
+    "ends_at": "2026-04-07T09:35:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-04-07T09:50:00",
+    "ends_at": "2026-04-07T11:25:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-04-07T13:30:00",
+    "ends_at": "2026-04-07T15:05:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "工程经济管理概论[社会认知类] (分组01)",
+    "teacher": "房银海,马欣,汪海燕,王妹,殷婧钰",
+    "location": "淮安校区在线教学",
+    "starts_at": "2026-04-07T18:30:00",
+    "ends_at": "2026-04-07T20:55:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "3-9(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-04-08T08:00:00",
+    "ends_at": "2026-04-08T09:35:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-04-08T09:50:00",
+    "ends_at": "2026-04-08T11:25:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-04-08T13:30:00",
+    "ends_at": "2026-04-08T15:05:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-04-08T15:20:00",
+    "ends_at": "2026-04-08T16:55:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "Python程序基础",
+    "teacher": "徐仁杰",
+    "location": "淮安校区A305",
+    "starts_at": "2026-04-09T08:00:00",
+    "ends_at": "2026-04-09T10:35:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[01-02-03节]",
+      "sections": [
+        1,
+        2,
+        3
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-04-09T13:30:00",
+    "ends_at": "2026-04-09T15:05:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-04-09T15:20:00",
+    "ends_at": "2026-04-09T16:55:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-04-10T09:50:00",
+    "ends_at": "2026-04-10T11:25:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区A103",
+    "starts_at": "2026-04-10T13:30:00",
+    "ends_at": "2026-04-10T16:55:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-7,9-13(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "批判性思维[社会认知类]",
+    "teacher": "李广博",
+    "location": "淮安校区B203",
+    "starts_at": "2026-04-12T18:30:00",
+    "ends_at": "2026-04-12T20:55:00",
+    "week": 6,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 7
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-04-13T08:00:00",
+    "ends_at": "2026-04-13T09:35:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-04-13T13:30:00",
+    "ends_at": "2026-04-13T15:05:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术实验A",
+    "teacher": "宋军",
+    "location": "电工电子实验室(A501-511)",
+    "starts_at": "2026-04-13T15:20:00",
+    "ends_at": "2026-04-13T16:55:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "6-13(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-04-14T08:00:00",
+    "ends_at": "2026-04-14T09:35:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-04-14T09:50:00",
+    "ends_at": "2026-04-14T11:25:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-04-14T13:30:00",
+    "ends_at": "2026-04-14T15:05:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "工程经济管理概论[社会认知类] (分组01)",
+    "teacher": "房银海,马欣,汪海燕,王妹,殷婧钰",
+    "location": "淮安校区在线教学",
+    "starts_at": "2026-04-14T18:30:00",
+    "ends_at": "2026-04-14T20:55:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "3-9(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-04-15T08:00:00",
+    "ends_at": "2026-04-15T09:35:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-04-15T09:50:00",
+    "ends_at": "2026-04-15T11:25:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-04-15T13:30:00",
+    "ends_at": "2026-04-15T15:05:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-04-15T15:20:00",
+    "ends_at": "2026-04-15T16:55:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "Python程序基础",
+    "teacher": "徐仁杰",
+    "location": "淮安校区A305",
+    "starts_at": "2026-04-16T08:00:00",
+    "ends_at": "2026-04-16T10:35:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[01-02-03节]",
+      "sections": [
+        1,
+        2,
+        3
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-04-16T13:30:00",
+    "ends_at": "2026-04-16T15:05:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-04-16T15:20:00",
+    "ends_at": "2026-04-16T16:55:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-04-17T09:50:00",
+    "ends_at": "2026-04-17T11:25:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区A103",
+    "starts_at": "2026-04-17T13:30:00",
+    "ends_at": "2026-04-17T16:55:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-7,9-13(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "批判性思维[社会认知类]",
+    "teacher": "李广博",
+    "location": "淮安校区B203",
+    "starts_at": "2026-04-19T18:30:00",
+    "ends_at": "2026-04-19T20:55:00",
+    "week": 7,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 7
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-04-20T08:00:00",
+    "ends_at": "2026-04-20T09:35:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-04-20T13:30:00",
+    "ends_at": "2026-04-20T15:05:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术实验A",
+    "teacher": "宋军",
+    "location": "电工电子实验室(A501-511)",
+    "starts_at": "2026-04-20T15:20:00",
+    "ends_at": "2026-04-20T16:55:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "6-13(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-04-21T08:00:00",
+    "ends_at": "2026-04-21T09:35:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-04-21T09:50:00",
+    "ends_at": "2026-04-21T11:25:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-04-21T13:30:00",
+    "ends_at": "2026-04-21T15:05:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "工程经济管理概论[社会认知类] (分组01)",
+    "teacher": "房银海,马欣,汪海燕,王妹,殷婧钰",
+    "location": "淮安校区在线教学",
+    "starts_at": "2026-04-21T18:30:00",
+    "ends_at": "2026-04-21T20:55:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "3-9(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-04-22T08:00:00",
+    "ends_at": "2026-04-22T09:35:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-04-22T09:50:00",
+    "ends_at": "2026-04-22T11:25:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-04-22T13:30:00",
+    "ends_at": "2026-04-22T15:05:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-04-22T15:20:00",
+    "ends_at": "2026-04-22T16:55:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "Python程序基础",
+    "teacher": "徐仁杰",
+    "location": "淮安校区A305",
+    "starts_at": "2026-04-23T08:00:00",
+    "ends_at": "2026-04-23T10:35:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[01-02-03节]",
+      "sections": [
+        1,
+        2,
+        3
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-04-23T13:30:00",
+    "ends_at": "2026-04-23T15:05:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "MATLAB",
+    "teacher": "滕燕",
+    "location": "淮安校区A101",
+    "starts_at": "2026-04-23T15:20:00",
+    "ends_at": "2026-04-23T16:55:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-8(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-04-24T09:50:00",
+    "ends_at": "2026-04-24T11:25:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "批判性思维[社会认知类]",
+    "teacher": "李广博",
+    "location": "淮安校区B203",
+    "starts_at": "2026-04-26T18:30:00",
+    "ends_at": "2026-04-26T20:55:00",
+    "week": 8,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 7
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-04-27T08:00:00",
+    "ends_at": "2026-04-27T09:35:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-04-27T13:30:00",
+    "ends_at": "2026-04-27T15:05:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术实验A",
+    "teacher": "宋军",
+    "location": "电工电子实验室(A501-511)",
+    "starts_at": "2026-04-27T15:20:00",
+    "ends_at": "2026-04-27T16:55:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "6-13(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-04-28T08:00:00",
+    "ends_at": "2026-04-28T09:35:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-04-28T09:50:00",
+    "ends_at": "2026-04-28T11:25:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-04-28T13:30:00",
+    "ends_at": "2026-04-28T15:05:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "工程经济管理概论[社会认知类] (分组01)",
+    "teacher": "房银海,马欣,汪海燕,王妹,殷婧钰",
+    "location": "淮安校区在线教学",
+    "starts_at": "2026-04-28T18:30:00",
+    "ends_at": "2026-04-28T20:55:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "3-9(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-04-29T08:00:00",
+    "ends_at": "2026-04-29T09:35:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-04-29T09:50:00",
+    "ends_at": "2026-04-29T11:25:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-04-29T13:30:00",
+    "ends_at": "2026-04-29T15:05:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-04-29T15:20:00",
+    "ends_at": "2026-04-29T16:55:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "Python程序基础",
+    "teacher": "徐仁杰",
+    "location": "淮安校区A305",
+    "starts_at": "2026-04-30T08:00:00",
+    "ends_at": "2026-04-30T10:35:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[01-02-03节]",
+      "sections": [
+        1,
+        2,
+        3
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-05-01T09:50:00",
+    "ends_at": "2026-05-01T11:25:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区A103",
+    "starts_at": "2026-05-01T13:30:00",
+    "ends_at": "2026-05-01T16:55:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-7,9-13(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "毛泽东思想和中国特色社会主义理论体系概论",
+    "teacher": "郭兆红",
+    "location": "淮安校区B402",
+    "starts_at": "2026-05-02T08:00:00",
+    "ends_at": "2026-05-02T11:25:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[01-02-03-04节]",
+      "sections": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "习近平新时代中国特色社会主义思想概论",
+    "teacher": "孔令海",
+    "location": "淮安校区B301",
+    "starts_at": "2026-05-02T13:30:00",
+    "ends_at": "2026-05-02T16:55:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区B401",
+    "starts_at": "2026-05-03T08:00:00",
+    "ends_at": "2026-05-03T11:25:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "9(周)[01-02-03-04节]",
+      "sections": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "weekday": 7
+    }
+  },
+  {
+    "title": "批判性思维[社会认知类]",
+    "teacher": "李广博",
+    "location": "淮安校区B203",
+    "starts_at": "2026-05-03T18:30:00",
+    "ends_at": "2026-05-03T20:55:00",
+    "week": 9,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 7
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-05-04T08:00:00",
+    "ends_at": "2026-05-04T09:35:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-05-04T13:30:00",
+    "ends_at": "2026-05-04T15:05:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术实验A",
+    "teacher": "宋军",
+    "location": "电工电子实验室(A501-511)",
+    "starts_at": "2026-05-04T15:20:00",
+    "ends_at": "2026-05-04T16:55:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "6-13(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-05-05T08:00:00",
+    "ends_at": "2026-05-05T09:35:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-05-05T09:50:00",
+    "ends_at": "2026-05-05T11:25:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-05-05T13:30:00",
+    "ends_at": "2026-05-05T15:05:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-05-06T08:00:00",
+    "ends_at": "2026-05-06T09:35:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-05-06T09:50:00",
+    "ends_at": "2026-05-06T11:25:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-05-06T13:30:00",
+    "ends_at": "2026-05-06T15:05:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-05-06T15:20:00",
+    "ends_at": "2026-05-06T16:55:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "Python程序基础",
+    "teacher": "徐仁杰",
+    "location": "淮安校区A305",
+    "starts_at": "2026-05-07T08:00:00",
+    "ends_at": "2026-05-07T10:35:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[01-02-03节]",
+      "sections": [
+        1,
+        2,
+        3
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-05-08T09:50:00",
+    "ends_at": "2026-05-08T11:25:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区A103",
+    "starts_at": "2026-05-08T13:30:00",
+    "ends_at": "2026-05-08T16:55:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-7,9-13(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "毛泽东思想和中国特色社会主义理论体系概论",
+    "teacher": "郭兆红",
+    "location": "淮安校区B402",
+    "starts_at": "2026-05-09T08:00:00",
+    "ends_at": "2026-05-09T11:25:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[01-02-03-04节]",
+      "sections": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "习近平新时代中国特色社会主义思想概论",
+    "teacher": "孔令海",
+    "location": "淮安校区B301",
+    "starts_at": "2026-05-09T13:30:00",
+    "ends_at": "2026-05-09T16:55:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "批判性思维[社会认知类]",
+    "teacher": "李广博",
+    "location": "淮安校区B203",
+    "starts_at": "2026-05-10T18:30:00",
+    "ends_at": "2026-05-10T20:55:00",
+    "week": 10,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 7
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-05-11T08:00:00",
+    "ends_at": "2026-05-11T09:35:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-05-11T13:30:00",
+    "ends_at": "2026-05-11T15:05:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术实验A",
+    "teacher": "宋军",
+    "location": "电工电子实验室(A501-511)",
+    "starts_at": "2026-05-11T15:20:00",
+    "ends_at": "2026-05-11T16:55:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "6-13(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-05-12T08:00:00",
+    "ends_at": "2026-05-12T09:35:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-05-12T09:50:00",
+    "ends_at": "2026-05-12T11:25:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-05-12T13:30:00",
+    "ends_at": "2026-05-12T15:05:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-05-13T08:00:00",
+    "ends_at": "2026-05-13T09:35:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-05-13T09:50:00",
+    "ends_at": "2026-05-13T11:25:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-05-13T13:30:00",
+    "ends_at": "2026-05-13T15:05:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "电子设计实践与创新B",
+    "teacher": "刘砚一,吴寅",
+    "location": "淮安校区1号实验楼五楼计算机中心（70人）",
+    "starts_at": "2026-05-13T15:20:00",
+    "ends_at": "2026-05-13T16:55:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "4-11(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "Python程序基础",
+    "teacher": "徐仁杰",
+    "location": "淮安校区A305",
+    "starts_at": "2026-05-14T08:00:00",
+    "ends_at": "2026-05-14T10:35:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[01-02-03节]",
+      "sections": [
+        1,
+        2,
+        3
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-05-15T09:50:00",
+    "ends_at": "2026-05-15T11:25:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区A103",
+    "starts_at": "2026-05-15T13:30:00",
+    "ends_at": "2026-05-15T16:55:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-7,9-13(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "毛泽东思想和中国特色社会主义理论体系概论",
+    "teacher": "郭兆红",
+    "location": "淮安校区B402",
+    "starts_at": "2026-05-16T08:00:00",
+    "ends_at": "2026-05-16T11:25:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[01-02-03-04节]",
+      "sections": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "习近平新时代中国特色社会主义思想概论",
+    "teacher": "孔令海",
+    "location": "淮安校区B301",
+    "starts_at": "2026-05-16T13:30:00",
+    "ends_at": "2026-05-16T16:55:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "批判性思维[社会认知类]",
+    "teacher": "李广博",
+    "location": "淮安校区B203",
+    "starts_at": "2026-05-17T18:30:00",
+    "ends_at": "2026-05-17T20:55:00",
+    "week": 11,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[09-10-11节]",
+      "sections": [
+        9,
+        10,
+        11
+      ],
+      "weekday": 7
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-05-18T08:00:00",
+    "ends_at": "2026-05-18T09:35:00",
+    "week": 12,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-05-18T13:30:00",
+    "ends_at": "2026-05-18T15:05:00",
+    "week": 12,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术实验A",
+    "teacher": "宋军",
+    "location": "电工电子实验室(A501-511)",
+    "starts_at": "2026-05-18T15:20:00",
+    "ends_at": "2026-05-18T16:55:00",
+    "week": 12,
+    "raw": {
+      "source": "web",
+      "week_spec": "6-13(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-05-19T08:00:00",
+    "ends_at": "2026-05-19T09:35:00",
+    "week": 12,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-05-19T09:50:00",
+    "ends_at": "2026-05-19T11:25:00",
+    "week": 12,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-05-19T13:30:00",
+    "ends_at": "2026-05-19T15:05:00",
+    "week": 12,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "概率统计B",
+    "teacher": "陈磊",
+    "location": "淮安校区B202",
+    "starts_at": "2026-05-20T08:00:00",
+    "ends_at": "2026-05-20T09:35:00",
+    "week": 12,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "单片机技术基础",
+    "teacher": "徐慧",
+    "location": "淮安校区A211",
+    "starts_at": "2026-05-20T13:30:00",
+    "ends_at": "2026-05-20T15:05:00",
+    "week": 12,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-05-22T09:50:00",
+    "ends_at": "2026-05-22T11:25:00",
+    "week": 12,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区A103",
+    "starts_at": "2026-05-22T13:30:00",
+    "ends_at": "2026-05-22T16:55:00",
+    "week": 12,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-7,9-13(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "毛泽东思想和中国特色社会主义理论体系概论",
+    "teacher": "郭兆红",
+    "location": "淮安校区B402",
+    "starts_at": "2026-05-23T08:00:00",
+    "ends_at": "2026-05-23T11:25:00",
+    "week": 12,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[01-02-03-04节]",
+      "sections": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "习近平新时代中国特色社会主义思想概论",
+    "teacher": "孔令海",
+    "location": "淮安校区B301",
+    "starts_at": "2026-05-23T13:30:00",
+    "ends_at": "2026-05-23T16:55:00",
+    "week": 12,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-05-25T08:00:00",
+    "ends_at": "2026-05-25T09:35:00",
+    "week": 13,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术A",
+    "teacher": "宋军",
+    "location": "淮安校区2号教学楼304",
+    "starts_at": "2026-05-25T13:30:00",
+    "ends_at": "2026-05-25T15:05:00",
+    "week": 13,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "数字电子技术实验A",
+    "teacher": "宋军",
+    "location": "电工电子实验室(A501-511)",
+    "starts_at": "2026-05-25T15:20:00",
+    "ends_at": "2026-05-25T16:55:00",
+    "week": 13,
+    "raw": {
+      "source": "web",
+      "week_spec": "6-13(周)[07-08节]",
+      "sections": [
+        7,
+        8
+      ],
+      "weekday": 1
+    }
+  },
+  {
+    "title": "大学英语(4)",
+    "teacher": "周辉",
+    "location": "淮安校区2号教学楼202",
+    "starts_at": "2026-05-26T08:00:00",
+    "ends_at": "2026-05-26T09:35:00",
+    "week": 13,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-13(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-05-29T09:50:00",
+    "ends_at": "2026-05-29T11:25:00",
+    "week": 13,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "信号与系统",
+    "teacher": "李澔翔",
+    "location": "淮安校区A103",
+    "starts_at": "2026-05-29T13:30:00",
+    "ends_at": "2026-05-29T16:55:00",
+    "week": 13,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-7,9-13(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "毛泽东思想和中国特色社会主义理论体系概论",
+    "teacher": "郭兆红",
+    "location": "淮安校区B402",
+    "starts_at": "2026-05-30T08:00:00",
+    "ends_at": "2026-05-30T11:25:00",
+    "week": 13,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[01-02-03-04节]",
+      "sections": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "习近平新时代中国特色社会主义思想概论",
+    "teacher": "孔令海",
+    "location": "淮安校区B301",
+    "starts_at": "2026-05-30T13:30:00",
+    "ends_at": "2026-05-30T16:55:00",
+    "week": 13,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-06-05T09:50:00",
+    "ends_at": "2026-06-05T11:25:00",
+    "week": 14,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "毛泽东思想和中国特色社会主义理论体系概论",
+    "teacher": "郭兆红",
+    "location": "淮安校区B402",
+    "starts_at": "2026-06-06T08:00:00",
+    "ends_at": "2026-06-06T11:25:00",
+    "week": 14,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[01-02-03-04节]",
+      "sections": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "习近平新时代中国特色社会主义思想概论",
+    "teacher": "孔令海",
+    "location": "淮安校区B301",
+    "starts_at": "2026-06-06T13:30:00",
+    "ends_at": "2026-06-06T16:55:00",
+    "week": 14,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-06-12T09:50:00",
+    "ends_at": "2026-06-12T11:25:00",
+    "week": 15,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "毛泽东思想和中国特色社会主义理论体系概论",
+    "teacher": "郭兆红",
+    "location": "淮安校区B402",
+    "starts_at": "2026-06-13T08:00:00",
+    "ends_at": "2026-06-13T11:25:00",
+    "week": 15,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[01-02-03-04节]",
+      "sections": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "习近平新时代中国特色社会主义思想概论",
+    "teacher": "孔令海",
+    "location": "淮安校区B301",
+    "starts_at": "2026-06-13T13:30:00",
+    "ends_at": "2026-06-13T16:55:00",
+    "week": 15,
+    "raw": {
+      "source": "web",
+      "week_spec": "9-15(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 6
+    }
+  },
+  {
+    "title": "体育(4) (篮球)",
+    "teacher": "张文涛",
+    "location": "体育运动场",
+    "starts_at": "2026-06-19T09:50:00",
+    "ends_at": "2026-06-19T11:25:00",
+    "week": 16,
+    "raw": {
+      "source": "web",
+      "week_spec": "1-16(周)[03-04节]",
+      "sections": [
+        3,
+        4
+      ],
+      "weekday": 5
+    }
+  },
+  {
+    "title": "形势与政策（4）",
+    "teacher": "代兵",
+    "location": "淮安校区B101",
+    "starts_at": "2026-06-25T13:30:00",
+    "ends_at": "2026-06-25T16:55:00",
+    "week": 17,
+    "raw": {
+      "source": "web",
+      "week_spec": "17-18(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 4
+    }
+  },
+  {
+    "title": "形势与政策（4）",
+    "teacher": "代兵",
+    "location": "淮安校区B101",
+    "starts_at": "2026-07-02T13:30:00",
+    "ends_at": "2026-07-02T16:55:00",
+    "week": 18,
+    "raw": {
+      "source": "web",
+      "week_spec": "17-18(周)[05-06-07-08节]",
+      "sections": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "weekday": 4
+    }
+  }
+]
