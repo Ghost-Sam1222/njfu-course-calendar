@@ -39,6 +39,9 @@ jobs:
           CALENDAR_NAME: ${{ vars.CALENDAR_NAME || '南林课表' }}
           CALENDAR_TIMEZONE: Asia/Shanghai
           JW_PROVIDER: qz_browser
+          EXCLUDE_DATES: ${{ vars.EXCLUDE_DATES }}
+          INCLUDE_EXAMS: ${{ vars.INCLUDE_EXAMS || 'false' }}
+          EXAM_URLS: ${{ vars.EXAM_URLS }}
         run: python scripts/sync_calendar.py
 
       - name: Commit changes

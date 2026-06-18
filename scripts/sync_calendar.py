@@ -19,19 +19,23 @@ DEFAULT_BASE_URL = "https://jwxt.njfu.edu.cn"
 DEFAULT_TZ = "Asia/Shanghai"
 TIMETABLE_URL = "https://jwxt.njfu.edu.cn/jsxsd/xskb/xskb_list.do?Ves632DSdyV=NEW_XSD_PYGL"
 LOGIN_ENTRY_URL = "https://jwxt.njfu.edu.cn/jsxsd/framework/xsMainV.jsp"
+DEFAULT_EXAM_URLS = [
+    "https://jwxt.njfu.edu.cn/jsxsd/xsks/xsksap_list.do",
+    "https://jwxt.njfu.edu.cn/jsxsd/xsks/xsksap_list",
+]
 SECTION_TIMES = {
     1: ("08:00", "08:45"),
-    2: ("08:50", "09:35"),
-    3: ("09:50", "10:35"),
-    4: ("10:40", "11:25"),
-    5: ("13:30", "14:15"),
-    6: ("14:20", "15:05"),
-    7: ("15:20", "16:05"),
-    8: ("16:10", "16:55"),
+    2: ("08:55", "09:40"),
+    3: ("10:00", "10:45"),
+    4: ("10:55", "11:40"),
+    5: ("14:00", "14:45"),
+    6: ("14:50", "15:35"),
+    7: ("15:55", "16:40"),
+    8: ("16:45", "17:30"),
     9: ("18:30", "19:15"),
     10: ("19:20", "20:05"),
-    11: ("20:10", "20:55"),
-    12: ("21:00", "21:45"),
+    11: ("20:15", "21:00"),
+    12: ("21:05", "21:50"),
 }
 
 
@@ -52,6 +56,9 @@ class Settings:
     output_ics: Path
     output_json: Path
     provider: str
+    excluded_dates: frozenset[date]
+    include_exams: bool
+    exam_urls: tuple[str, ...]
 
 
 @dataclass(frozen=True)
@@ -63,6 +70,13 @@ class CourseEvent:
     ends_at: datetime
     week: int
     raw: dict[str, Any]
+    event_type: str = "course"
+
+
+@dataclass(frozen=True)
+class BrowserFetchResult:
+    timetable_html: str
+    exam_html: Optional[str] = None
 
 
 def env(name: str, default: Optional[str] = None) -> Optional[str]:
@@ -91,6 +105,42 @@ def parse_date(value: str, name: str) -> date:
         return datetime.strptime(value, "%Y-%m-%d").date()
     except ValueError as exc:
         raise SyncError(f"{name} must use YYYY-MM-DD, got {value!r}") from exc
+
+
+def parse_bool(value: Optional[str], default: bool = False) -> bool:
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
+def parse_date_set(value: Optional[str], name: str) -> frozenset[date]:
+    if not value:
+        return frozenset()
+    dates: set[date] = set()
+    for raw_part in re.split(r"[,，\n]", value):
+        part = raw_part.strip()
+        if not part:
+            continue
+        separator = ".." if ".." in part else "~" if "~" in part else None
+        if separator:
+            start_text, end_text = [item.strip() for item in part.split(separator, 1)]
+            start = parse_date(start_text, name)
+            end = parse_date(end_text, name)
+            if end < start:
+                raise SyncError(f"{name} range ends before it starts: {part!r}")
+            cursor = start
+            while cursor <= end:
+                dates.add(cursor)
+                cursor += timedelta(days=1)
+        else:
+            dates.add(parse_date(part, name))
+    return frozenset(dates)
+
+
+def parse_url_list(value: Optional[str]) -> tuple[str, ...]:
+    if not value:
+        return tuple(DEFAULT_EXAM_URLS)
+    return tuple(part.strip() for part in re.split(r"[,，\n]", value) if part.strip())
 
 
 def load_dotenv(path: Path) -> None:
@@ -122,6 +172,12 @@ def load_settings(args: argparse.Namespace) -> Settings:
         output_ics=Path(args.output_ics),
         output_json=Path(args.output_json),
         provider=env("JW_PROVIDER", "qz_app"),
+        excluded_dates=parse_date_set(
+            env("EXCLUDE_DATES", env("SKIP_DATES")),
+            "EXCLUDE_DATES",
+        ),
+        include_exams=parse_bool(env("INCLUDE_EXAMS"), default=False),
+        exam_urls=parse_url_list(env("EXAM_URLS", env("EXAM_URL"))),
     )
 
 
@@ -211,7 +267,7 @@ class QiangzhiAppClient:
             ) from exc
 
 
-async def fetch_timetable_html_with_browser(settings: Settings) -> str:
+async def fetch_web_pages_with_browser(settings: Settings) -> BrowserFetchResult:
     try:
         from playwright.async_api import async_playwright
     except ImportError as exc:
@@ -238,7 +294,21 @@ async def fetch_timetable_html_with_browser(settings: Settings) -> str:
                 raise SyncError("Browser login stayed on the unified-auth login page.")
             await page.goto(TIMETABLE_URL, wait_until="domcontentloaded", timeout=60000)
             await page.wait_for_selector("#timetable", timeout=60000)
-            return await page.content()
+            timetable_html = await page.content()
+            exam_html = None
+            if settings.include_exams:
+                for exam_url in settings.exam_urls:
+                    try:
+                        await page.goto(exam_url, wait_until="domcontentloaded", timeout=60000)
+                        content = await page.content()
+                        if looks_like_exam_page(content):
+                            exam_html = content
+                            break
+                    except Exception as exc:  # pragma: no cover - depends on school website.
+                        print(f"warning: could not fetch exam page {exam_url}: {exc}", file=sys.stderr)
+                if exam_html is None:
+                    print("warning: exam import is enabled, but no exam page was recognized.", file=sys.stderr)
+            return BrowserFetchResult(timetable_html=timetable_html, exam_html=exam_html)
         finally:
             await browser.close()
 
@@ -246,6 +316,10 @@ async def fetch_timetable_html_with_browser(settings: Settings) -> str:
 def is_hidden_tag(tag: Any) -> bool:
     style = (tag.get("style") or "").replace(" ", "").lower()
     return "display:none" in style
+
+
+def looks_like_exam_page(html: str) -> bool:
+    return "考试" in html and any(word in html for word in ("考试时间", "考试日期", "考试地点", "课程名称", "考试安排"))
 
 
 def expand_weeks(week_spec: str) -> list[int]:
@@ -362,6 +436,126 @@ def web_html_to_events(settings: Settings, html: str) -> list[CourseEvent]:
     return sorted(events, key=lambda item: (item.starts_at, item.ends_at, item.title))
 
 
+def infer_exam_year(settings: Settings) -> int:
+    match = re.match(r"(\d{4})-(\d{4})-([12])", settings.semester)
+    if not match:
+        return settings.first_monday.year
+    start_year, end_year, term = match.groups()
+    return int(end_year if term == "2" else start_year)
+
+
+def normalize_header(value: str) -> str:
+    return re.sub(r"[\s:：()（）\[\]【】]", "", normalize_text(value))
+
+
+def find_row_value(row: dict[str, str], keywords: tuple[str, ...], avoid: tuple[str, ...] = ()) -> str:
+    for header, value in row.items():
+        if value and all(word in header for word in keywords) and not any(word in header for word in avoid):
+            return value
+    return ""
+
+
+def parse_exam_date(text: str, settings: Settings) -> Optional[date]:
+    normalized = normalize_text(text)
+    patterns = [
+        r"(\d{4})[-/.年](\d{1,2})[-/.月](\d{1,2})",
+        r"(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日?",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, normalized)
+        if match:
+            year, month, day = (int(item) for item in match.groups())
+            return date(year, month, day)
+    match = re.search(r"(\d{1,2})\s*月\s*(\d{1,2})\s*日?", normalized)
+    if match:
+        month, day = (int(item) for item in match.groups())
+        return date(infer_exam_year(settings), month, day)
+    return None
+
+
+def parse_exam_time_range(text: str) -> Optional[tuple[time, time]]:
+    normalized = normalize_text(text)
+    match = re.search(r"(\d{1,2}:\d{2})\s*(?:-|~|－|—|至|到)\s*(\d{1,2}:\d{2})", normalized)
+    if not match:
+        return None
+    start_text, end_text = match.groups()
+    return parse_time_value(start_text, "exam start"), parse_time_value(end_text, "exam end")
+
+
+def exam_row_to_event(settings: Settings, row: dict[str, str]) -> Optional[CourseEvent]:
+    title = (
+        find_row_value(row, ("课程",), avoid=("代码", "编号"))
+        or find_row_value(row, ("科目",))
+        or find_row_value(row, ("名称",))
+    )
+    date_text = find_row_value(row, ("日期",)) or find_row_value(row, ("时间",))
+    time_text = find_row_value(row, ("时间",)) or date_text
+    exam_date = parse_exam_date(date_text + " " + time_text, settings)
+    time_range = parse_exam_time_range(time_text)
+    if not title or exam_date is None or time_range is None:
+        return None
+    location = (
+        find_row_value(row, ("地点",))
+        or find_row_value(row, ("考场",))
+        or find_row_value(row, ("教室",))
+    )
+    seat = find_row_value(row, ("座位",)) or find_row_value(row, ("座号",))
+    start_time, end_time = time_range
+    raw = {"source": "exam", "row": row}
+    if seat:
+        raw["seat"] = seat
+    return CourseEvent(
+        title=f"期末考试：{title}",
+        teacher="",
+        location=location,
+        starts_at=datetime.combine(exam_date, start_time),
+        ends_at=datetime.combine(exam_date, end_time),
+        week=0,
+        raw=raw,
+        event_type="exam",
+    )
+
+
+def exam_html_to_events(settings: Settings, html: str) -> list[CourseEvent]:
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError as exc:
+        raise SyncError("Missing dependency: beautifulsoup4. Run `pip install -r requirements.txt`.") from exc
+
+    soup = BeautifulSoup(html, "html.parser")
+    events: list[CourseEvent] = []
+    seen: set[str] = set()
+    for table in soup.find_all("table"):
+        rows = table.find_all("tr")
+        headers: list[str] = []
+        for row in rows:
+            cells = row.find_all(["th", "td"], recursive=False)
+            values = [normalize_text(cell.get_text(" ", strip=True)) for cell in cells]
+            if not any(values):
+                continue
+            normalized = [normalize_header(value) for value in values]
+            if not headers and any("课程" in item or "科目" in item for item in normalized) and any(
+                "时间" in item or "日期" in item for item in normalized
+            ):
+                headers = normalized
+                continue
+            if not headers or len(values) < 2:
+                continue
+            row_data = {
+                headers[index]: value
+                for index, value in enumerate(values[: len(headers)])
+                if value
+            }
+            event = exam_row_to_event(settings, row_data)
+            if event is None:
+                continue
+            key = stable_event_uid(event)
+            if key not in seen:
+                seen.add(key)
+                events.append(event)
+    return sorted(events, key=lambda item: (item.starts_at, item.ends_at, item.title))
+
+
 def parse_time_value(value: Any, field_name: str) -> time:
     if value is None:
         raise SyncError(f"Missing time field: {field_name}")
@@ -421,6 +615,16 @@ def course_rows_to_events(settings: Settings, rows: list[dict[str, Any]]) -> lis
         seen.add(key)
         events.append(event)
     return sorted(events, key=lambda item: (item.starts_at, item.ends_at, item.title))
+
+
+def filter_excluded_dates(settings: Settings, events: list[CourseEvent]) -> list[CourseEvent]:
+    if not settings.excluded_dates:
+        return events
+    return [
+        event
+        for event in events
+        if event.event_type != "course" or event.starts_at.date() not in settings.excluded_dates
+    ]
 
 
 def stable_event_uid(event: CourseEvent) -> str:
@@ -491,12 +695,18 @@ def generate_ics(settings: Settings, events: list[CourseEvent]) -> str:
         f"X-WR-RELCALID:{cal_id}",
     ]
     for event in events:
-        description_parts = [f"第{event.week}周"]
+        description_parts = ["期末考试" if event.event_type == "exam" else f"第{event.week}周"]
         if event.teacher:
             description_parts.append(f"教师：{event.teacher}")
         kkzc = normalize_text(event.raw.get("kkzc"))
         if kkzc:
             description_parts.append(f"节次：{kkzc}")
+        sections = event.raw.get("sections")
+        if sections:
+            description_parts.append(f"节次：{min(sections):02d}-{max(sections):02d}节")
+        seat = normalize_text(event.raw.get("seat"))
+        if seat:
+            description_parts.append(f"座位：{seat}")
         lines.extend(
             [
                 "BEGIN:VEVENT",
@@ -524,6 +734,7 @@ def write_json(path: Path, events: list[CourseEvent]) -> None:
             "starts_at": event.starts_at.isoformat(),
             "ends_at": event.ends_at.isoformat(),
             "week": event.week,
+            "event_type": event.event_type,
             "raw": event.raw,
         }
         for event in events
@@ -550,13 +761,17 @@ def run(settings: Settings, raw_json: Optional[Path] = None) -> None:
         rows = load_raw_rows(raw_json)
         events = course_rows_to_events(settings, rows)
     elif settings.provider == "qz_browser":
-        html = asyncio.run(fetch_timetable_html_with_browser(settings))
-        events = web_html_to_events(settings, html)
+        pages = asyncio.run(fetch_web_pages_with_browser(settings))
+        events = web_html_to_events(settings, pages.timetable_html)
+        if pages.exam_html:
+            events.extend(exam_html_to_events(settings, pages.exam_html))
     else:
         if settings.provider != "qz_app":
             raise SyncError(f"Unsupported JW_PROVIDER: {settings.provider}")
         rows = QiangzhiAppClient(settings).fetch_term()
         events = course_rows_to_events(settings, rows)
+    events = filter_excluded_dates(settings, events)
+    events = sorted(events, key=lambda item: (item.starts_at, item.ends_at, item.title))
     settings.output_ics.parent.mkdir(parents=True, exist_ok=True)
     settings.output_ics.write_text(generate_ics(settings, events), encoding="utf-8")
     write_json(settings.output_json, events)

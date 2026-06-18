@@ -25,6 +25,8 @@ python scripts/sync_calendar.py
 - `JW_PASSWORD`：教务系统密码
 - `JW_SEMESTER`：学期，例如 `2025-2026-2`。不填时会按日期自动推断。
 - `TERM_FIRST_MONDAY`：教学第一周周一日期，这个必须准确，否则日历日期会偏移。
+- `EXCLUDE_DATES`：不上课日期，支持单日和范围，例如 `2026-04-04..2026-04-06,2026-05-01..2026-05-05`。
+- `INCLUDE_EXAMS`：是否尝试把考试安排加入日历，默认 `false`。
 
 `.env` 已被 `.gitignore` 忽略，不要提交。
 
@@ -51,8 +53,34 @@ Variables:
 - `TERM_WEEKS`，默认 `20`
 - `CALENDAR_NAME`，默认 `南林课表`
 - `JW_BASE_URL`，默认 `https://jwxt.njfu.edu.cn`
+- `EXCLUDE_DATES`，法定节假日或学校临时停课日期，例如 `2026-04-04..2026-04-06,2026-05-01..2026-05-05,2026-06-19`
+- `INCLUDE_EXAMS`，设为 `true` 后会尝试抓取考试安排页面
+- `EXAM_URLS`，可选，考试安排页面地址；不填会尝试强智常见考试安排路径
 
 工作流文件在 `.github/workflows/sync-calendar.yml`，默认每 6 小时同步一次，也支持手动运行。
+
+## 时间规则
+
+南林课表按一节大课生成一个日历事件：
+
+- 01-02 节：08:00-09:40
+- 03-04 节：10:00-11:40
+- 05-06 节：14:00-15:35
+- 07-08 节：15:55-17:30
+- 09-10 节：18:30-20:05
+
+如果教务系统没有删除法定节假日课程，把这些日期填到 `EXCLUDE_DATES` 即可，生成日历时会自动跳过普通课程。考试安排不会被 `EXCLUDE_DATES` 过滤。
+
+## 下学期继续使用
+
+订阅链接不需要换。每学期开学前只需要在 GitHub 仓库 Settings -> Secrets and variables -> Actions -> Variables 更新：
+
+- `JW_SEMESTER`
+- `TERM_FIRST_MONDAY`
+- `TERM_WEEKS`
+- `EXCLUDE_DATES`
+
+Apple 日历仍然订阅同一个 `.ics` 地址，GitHub Actions 重新生成文件后会自动刷新。
 
 ## 发布订阅地址
 
