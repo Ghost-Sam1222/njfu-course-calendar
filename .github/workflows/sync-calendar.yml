@@ -1,0 +1,44 @@
+name: Sync Course Calendar
+
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate iCalendar
+        env:
+          JW_BASE_URL: ${{ vars.JW_BASE_URL || 'https://jwxt.njfu.edu.cn' }}
+          JW_USERNAME: ${{ secrets.JW_USERNAME }}
+          JW_PASSWORD: ${{ secrets.JW_PASSWORD }}
+          JW_SEMESTER: ${{ vars.JW_SEMESTER }}
+          TERM_FIRST_MONDAY: ${{ vars.TERM_FIRST_MONDAY }}
+          TERM_WEEKS: ${{ vars.TERM_WEEKS || '20' }}
+          CALENDAR_NAME: ${{ vars.CALENDAR_NAME || '南林课表' }}
+          CALENDAR_TIMEZONE: Asia/Shanghai
+        run: python scripts/sync_calendar.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f public/calendar.ics data/timetable.json
+          git diff --cached --quiet || git commit -m "sync course calendar"
+          git push
