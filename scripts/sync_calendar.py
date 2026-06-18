@@ -61,6 +61,7 @@ class Settings:
     output_json: Path
     provider: str
     excluded_dates: frozenset[date]
+    makeup_dates: frozenset[date]
     auto_exclude_holidays: bool
     holiday_ics_urls: tuple[str, ...]
     include_exams: bool
@@ -187,6 +188,10 @@ def load_settings(args: argparse.Namespace) -> Settings:
         excluded_dates=parse_date_set(
             env("EXCLUDE_DATES", env("SKIP_DATES")),
             "EXCLUDE_DATES",
+        ),
+        makeup_dates=parse_date_set(
+            env("MAKEUP_DATES", env("KEEP_DATES")),
+            "MAKEUP_DATES",
         ),
         auto_exclude_holidays=parse_bool(env("AUTO_EXCLUDE_HOLIDAYS"), default=True),
         holiday_ics_urls=parse_holiday_url_list(env("HOLIDAY_ICS_URLS", env("HOLIDAY_ICS_URL"))),
@@ -635,6 +640,7 @@ def filter_excluded_dates(settings: Settings, events: list[CourseEvent]) -> list
     excluded_dates = set(settings.excluded_dates)
     if settings.auto_exclude_holidays:
         excluded_dates.update(fetch_holiday_dates(settings))
+    excluded_dates.difference_update(settings.makeup_dates)
     if not excluded_dates:
         return events
     return [

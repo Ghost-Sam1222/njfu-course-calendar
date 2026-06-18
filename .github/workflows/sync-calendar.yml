@@ -40,6 +40,7 @@ jobs:
           CALENDAR_TIMEZONE: Asia/Shanghai
           JW_PROVIDER: qz_browser
           EXCLUDE_DATES: ${{ vars.EXCLUDE_DATES }}
+          MAKEUP_DATES: ${{ vars.MAKEUP_DATES }}
           AUTO_EXCLUDE_HOLIDAYS: ${{ vars.AUTO_EXCLUDE_HOLIDAYS || 'true' }}
           HOLIDAY_ICS_URLS: ${{ vars.HOLIDAY_ICS_URLS }}
           INCLUDE_EXAMS: ${{ vars.INCLUDE_EXAMS || 'false' }}
