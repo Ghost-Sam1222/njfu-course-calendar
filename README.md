@@ -60,13 +60,13 @@ Variables:
 
 1. 进入仓库 Settings -> Pages。
 2. Source 选择 `Deploy from a branch`。
-3. Branch 选择 `main`，目录选择 `/public`。
+3. Branch 选择 `main`，目录选择 `/ (root)`。
 4. 保存后等待 Pages 部署完成。
 
 之后 Apple 日历订阅地址类似：
 
 ```text
-https://<你的 GitHub 用户名>.github.io/<仓库名>/calendar.ics
+https://<你的 GitHub 用户名>.github.io/<仓库名>/public/calendar.ics
 ```
 
 在 iPhone 上：设置 -> 日历 -> 账户 -> 添加账户 -> 其他 -> 添加已订阅的日历。
@@ -78,4 +78,4 @@ https://<你的 GitHub 用户名>.github.io/<仓库名>/calendar.ics
 生成的 `.ics` 只包含课程名、上课时间、地点、教师，不包含密码。  
 如果仓库或 GitHub Pages 是公开的，课程地点和时间也会公开。介意隐私时，请使用私有托管或难猜路径。
 
-南京林业大学网页登录入口会跳统一认证，本项目第一版优先使用强智移动端 `app.do` 接口。如果运行时报错 `did not return JSON` 或 `用户没有登录`，说明学校可能关闭了移动端直登接口，需要补 CAS 登录适配。
+南京林业大学网页登录入口会跳统一认证。本项目默认使用 Playwright 无头浏览器模拟真实网页登录，再解析网页课表生成订阅日历。

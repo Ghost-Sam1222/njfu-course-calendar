@@ -21,7 +21,9 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install chromium
 
       - name: Generate iCalendar
         env:
@@ -33,6 +35,7 @@ jobs:
           TERM_WEEKS: ${{ vars.TERM_WEEKS || '20' }}
           CALENDAR_NAME: ${{ vars.CALENDAR_NAME || '南林课表' }}
           CALENDAR_TIMEZONE: Asia/Shanghai
+          JW_PROVIDER: qz_browser
         run: python scripts/sync_calendar.py
 
       - name: Commit changes

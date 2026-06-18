@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import hashlib
 import json
 import os
@@ -16,6 +17,22 @@ from urllib.parse import urljoin
 
 DEFAULT_BASE_URL = "https://jwxt.njfu.edu.cn"
 DEFAULT_TZ = "Asia/Shanghai"
+TIMETABLE_URL = "https://jwxt.njfu.edu.cn/jsxsd/xskb/xskb_list.do?Ves632DSdyV=NEW_XSD_PYGL"
+LOGIN_ENTRY_URL = "https://jwxt.njfu.edu.cn/jsxsd/framework/xsMainV.jsp"
+SECTION_TIMES = {
+    1: ("08:00", "08:45"),
+    2: ("08:50", "09:35"),
+    3: ("09:50", "10:35"),
+    4: ("10:40", "11:25"),
+    5: ("13:30", "14:15"),
+    6: ("14:20", "15:05"),
+    7: ("15:20", "16:05"),
+    8: ("16:10", "16:55"),
+    9: ("18:30", "19:15"),
+    10: ("19:20", "20:05"),
+    11: ("20:10", "20:55"),
+    12: ("21:00", "21:45"),
+}
 
 
 class SyncError(RuntimeError):
@@ -192,6 +209,157 @@ class QiangzhiAppClient:
             raise SyncError(
                 f"{label} did not return JSON. First 200 chars: {text[:200]!r}"
             ) from exc
+
+
+async def fetch_timetable_html_with_browser(settings: Settings) -> str:
+    try:
+        from playwright.async_api import async_playwright
+    except ImportError as exc:
+        raise SyncError("Missing dependency: playwright. Run `pip install -r requirements.txt`.") from exc
+
+    async with async_playwright() as playwright:
+        browser = await playwright.chromium.launch(headless=True)
+        page = await browser.new_page(
+            user_agent=(
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+            ),
+            locale="zh-CN",
+        )
+        try:
+            await page.goto(LOGIN_ENTRY_URL, wait_until="domcontentloaded", timeout=60000)
+            if "authserver/login" in page.url:
+                await page.fill("#username", settings.username)
+                await page.fill("#password", settings.password)
+                await page.click('button[type="submit"]')
+                await page.wait_for_load_state("domcontentloaded", timeout=60000)
+                await page.wait_for_timeout(2000)
+            if "authserver/login" in page.url:
+                raise SyncError("Browser login stayed on the unified-auth login page.")
+            await page.goto(TIMETABLE_URL, wait_until="domcontentloaded", timeout=60000)
+            await page.wait_for_selector("#timetable", timeout=60000)
+            return await page.content()
+        finally:
+            await browser.close()
+
+
+def is_hidden_tag(tag: Any) -> bool:
+    style = (tag.get("style") or "").replace(" ", "").lower()
+    return "display:none" in style
+
+
+def expand_weeks(week_spec: str) -> list[int]:
+    text = normalize_text(week_spec)
+    match = re.search(r"([0-9,\-\s]+)\(周\)", text)
+    if not match:
+        return []
+    weeks: set[int] = set()
+    for part in match.group(1).replace(" ", "").split(","):
+        if not part:
+            continue
+        if "-" in part:
+            start_text, end_text = part.split("-", 1)
+            start, end = int(start_text), int(end_text)
+            weeks.update(range(start, end + 1))
+        else:
+            weeks.add(int(part))
+    if "单周" in text:
+        weeks = {week for week in weeks if week % 2 == 1}
+    if "双周" in text:
+        weeks = {week for week in weeks if week % 2 == 0}
+    return sorted(weeks)
+
+
+def parse_sections(week_spec: str) -> list[int]:
+    match = re.search(r"\[([0-9\-\s]+)节\]", normalize_text(week_spec))
+    if not match:
+        return []
+    return [int(value) for value in re.findall(r"\d+", match.group(1))]
+
+
+def time_for_sections(sections: list[int]) -> tuple[time, time]:
+    if not sections:
+        raise SyncError("Course is missing class sections.")
+    start_text = SECTION_TIMES[min(sections)][0]
+    end_text = SECTION_TIMES[max(sections)][1]
+    return parse_time_value(start_text, "section start"), parse_time_value(end_text, "section end")
+
+
+def parse_course_div(div: Any) -> list[dict[str, str]]:
+    courses: list[dict[str, str]] = []
+    current: dict[str, str] = {}
+
+    def flush() -> None:
+        nonlocal current
+        if current.get("title") and current.get("week_spec"):
+            courses.append(current)
+        current = {}
+
+    for child in div.children:
+        text = normalize_text(child.get_text(" ", strip=True) if hasattr(child, "get_text") else str(child))
+        if not text:
+            continue
+        if set(text) <= {"-"} and len(text) >= 5:
+            flush()
+            continue
+        if getattr(child, "name", None) != "font" or is_hidden_tag(child):
+            continue
+        title = normalize_text(child.get("title"))
+        if title == "教师":
+            current["teacher"] = text
+        elif title == "周次(节次)":
+            current["week_spec"] = text
+        elif title == "教室":
+            current["location"] = text
+        elif not title and "title" not in current:
+            current["title"] = text
+    flush()
+    return courses
+
+
+def web_html_to_events(settings: Settings, html: str) -> list[CourseEvent]:
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError as exc:
+        raise SyncError("Missing dependency: beautifulsoup4. Run `pip install -r requirements.txt`.") from exc
+
+    soup = BeautifulSoup(html, "html.parser")
+    table = soup.find("table", {"id": "timetable"})
+    if table is None:
+        raise SyncError("Could not find #timetable in the rendered timetable page.")
+    events: list[CourseEvent] = []
+    seen: set[str] = set()
+    rows = table.find_all("tr")
+    for row in rows[1:]:
+        cells = row.find_all("td", recursive=False)
+        for weekday_index, cell in enumerate(cells, start=1):
+            for div in cell.find_all("div", class_="kbcontent", recursive=False):
+                if is_hidden_tag(div):
+                    continue
+                for course in parse_course_div(div):
+                    sections = parse_sections(course["week_spec"])
+                    start_time, end_time = time_for_sections(sections)
+                    for week in expand_weeks(course["week_spec"]):
+                        class_date = settings.first_monday + timedelta(weeks=week - 1, days=weekday_index - 1)
+                        event = CourseEvent(
+                            title=course["title"],
+                            teacher=course.get("teacher", ""),
+                            location=course.get("location", ""),
+                            starts_at=datetime.combine(class_date, start_time),
+                            ends_at=datetime.combine(class_date, end_time),
+                            week=week,
+                            raw={
+                                "source": "web",
+                                "week_spec": course["week_spec"],
+                                "sections": sections,
+                                "weekday": weekday_index,
+                            },
+                        )
+                        key = stable_event_uid(event)
+                        if key not in seen:
+                            seen.add(key)
+                            events.append(event)
+    return sorted(events, key=lambda item: (item.starts_at, item.ends_at, item.title))
 
 
 def parse_time_value(value: Any, field_name: str) -> time:
@@ -380,11 +548,15 @@ def load_raw_rows(path: Path) -> list[dict[str, Any]]:
 def run(settings: Settings, raw_json: Optional[Path] = None) -> None:
     if raw_json:
         rows = load_raw_rows(raw_json)
+        events = course_rows_to_events(settings, rows)
+    elif settings.provider == "qz_browser":
+        html = asyncio.run(fetch_timetable_html_with_browser(settings))
+        events = web_html_to_events(settings, html)
     else:
         if settings.provider != "qz_app":
             raise SyncError(f"Unsupported JW_PROVIDER: {settings.provider}")
         rows = QiangzhiAppClient(settings).fetch_term()
-    events = course_rows_to_events(settings, rows)
+        events = course_rows_to_events(settings, rows)
     settings.output_ics.parent.mkdir(parents=True, exist_ok=True)
     settings.output_ics.write_text(generate_ics(settings, events), encoding="utf-8")
     write_json(settings.output_json, events)
