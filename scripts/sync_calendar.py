@@ -57,6 +57,7 @@ class Settings:
     term_weeks: int
     calendar_name: str
     timezone_id: str
+    refresh_interval: str
     output_ics: Path
     output_json: Path
     provider: str
@@ -182,6 +183,7 @@ def load_settings(args: argparse.Namespace) -> Settings:
         term_weeks=int(env("TERM_WEEKS", "20")),
         calendar_name=env("CALENDAR_NAME", "南林课表"),
         timezone_id=env("CALENDAR_TIMEZONE", DEFAULT_TZ),
+        refresh_interval=env("CALENDAR_REFRESH_INTERVAL", "PT6H"),
         output_ics=Path(args.output_ics),
         output_json=Path(args.output_json),
         provider=env("JW_PROVIDER", "qz_app"),
@@ -808,6 +810,8 @@ def generate_ics(settings: Settings, events: list[CourseEvent]) -> str:
         f"X-WR-CALNAME:{ics_escape(settings.calendar_name)}",
         f"X-WR-TIMEZONE:{ics_escape(settings.timezone_id)}",
         f"X-WR-RELCALID:{cal_id}",
+        f"REFRESH-INTERVAL;VALUE=DURATION:{settings.refresh_interval}",
+        f"X-PUBLISHED-TTL:{settings.refresh_interval}",
     ]
     for event in events:
         description_parts = ["期末考试" if event.event_type == "exam" else f"第{event.week}周"]
@@ -827,6 +831,7 @@ def generate_ics(settings: Settings, events: list[CourseEvent]) -> str:
                 "BEGIN:VEVENT",
                 f"UID:{stable_event_uid(event)}",
                 f"DTSTAMP:{now}",
+                f"LAST-MODIFIED:{now}",
                 f"DTSTART;TZID={settings.timezone_id}:{fmt_local(event.starts_at)}",
                 f"DTEND;TZID={settings.timezone_id}:{fmt_local(event.ends_at)}",
                 f"SUMMARY:{ics_escape(event.title)}",

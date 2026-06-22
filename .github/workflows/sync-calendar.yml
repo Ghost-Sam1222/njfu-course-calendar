@@ -5,7 +5,8 @@ on:
     branches:
       - main
   schedule:
-    - cron: "23 */6 * * *"
+    # 06:23 Asia/Shanghai every day. GitHub cron uses UTC.
+    - cron: "23 22 * * *"
   workflow_dispatch:
 
 permissions:
@@ -38,6 +39,7 @@ jobs:
           TERM_WEEKS: ${{ vars.TERM_WEEKS || '20' }}
           CALENDAR_NAME: ${{ vars.CALENDAR_NAME || '南林课表' }}
           CALENDAR_TIMEZONE: Asia/Shanghai
+          CALENDAR_REFRESH_INTERVAL: ${{ vars.CALENDAR_REFRESH_INTERVAL || 'PT6H' }}
           JW_PROVIDER: qz_browser
           EXCLUDE_DATES: ${{ vars.EXCLUDE_DATES }}
           MAKEUP_DATES: ${{ vars.MAKEUP_DATES }}

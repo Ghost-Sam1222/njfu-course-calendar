@@ -56,6 +56,7 @@ Variables:
 - `TERM_WEEKS`，默认 `20`
 - `CALENDAR_NAME`，默认 `南林课表`
 - `JW_BASE_URL`，默认 `https://jwxt.njfu.edu.cn`
+- `CALENDAR_REFRESH_INTERVAL`，写入 `.ics` 的建议刷新周期，默认 `PT6H`
 - `EXCLUDE_DATES`，法定节假日或学校临时停课日期，例如 `2026-04-04..2026-04-06,2026-05-01..2026-05-05,2026-06-19`
 - `MAKEUP_DATES`，学校补课/照常上课日期，例如 `2026-05-04`
 - `AUTO_EXCLUDE_HOLIDAYS`，默认 `true`
@@ -63,7 +64,23 @@ Variables:
 - `INCLUDE_EXAMS`，设为 `true` 后会尝试抓取考试安排页面
 - `EXAM_URLS`，可选，考试安排页面地址；不填会尝试强智常见考试安排路径
 
-工作流文件在 `.github/workflows/sync-calendar.yml`，默认每 6 小时同步一次，也支持手动运行。
+工作流文件在 `.github/workflows/sync-calendar.yml`，默认每天北京时间 06:23 同步一次，推送代码和手动运行也会触发同步。
+
+## 更新周期和数据源
+
+这套同步分三层：
+
+- GitHub Actions：每天登录一次南京林业大学教务系统，重新抓取网页课表。
+- GitHub Pages：Actions 生成 `public/calendar.ics` 后提交到仓库，Pages 通常会在几分钟内发布新版文件。
+- Apple 日历：iOS/macOS 订阅日历不会实时刷新。`.ics` 里会写入 `REFRESH-INTERVAL:PT6H` 和 `X-PUBLISHED-TTL:PT6H`，但 Apple 可能按自己的节奏刷新，实际可能从几十分钟到数小时不等。
+
+数据源如下：
+
+- 课程：南京林业大学强智教务系统网页课表。
+- 法定节假日：外部 iCalendar，默认 `YangH9/ChinaCalendar` 的 `cal_holiday_1.ics`。
+- 学校临时停课：手动填 `EXCLUDE_DATES`。
+- 学校补课/照常上课：手动填 `MAKEUP_DATES`。
+- 期末考试：已预留 `INCLUDE_EXAMS` 和 `EXAM_URLS`，默认关闭。等需要接入考试安排时再开启并校验页面结构。
 
 ## 时间规则
 
@@ -85,6 +102,7 @@ Variables:
 - `TERM_FIRST_MONDAY`
 - `TERM_WEEKS`
 - `EXCLUDE_DATES`
+- `MAKEUP_DATES`
 
 Apple 日历仍然订阅同一个 `.ics` 地址，GitHub Actions 重新生成文件后会自动刷新。
 
