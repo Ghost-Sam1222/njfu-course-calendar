@@ -19,17 +19,37 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Preflight
+        id: preflight
+        env:
+          SYNC_ENABLED: ${{ vars.SYNC_ENABLED || 'true' }}
+          SYNC_UNTIL: ${{ vars.SYNC_UNTIL }}
+        run: |
+          if [ "$SYNC_ENABLED" != "true" ]; then
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          today="$(TZ=Asia/Shanghai date +%F)"
+          if [ -n "$SYNC_UNTIL" ] && [ "$today" \> "$SYNC_UNTIL" ]; then
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "should_run=true" >> "$GITHUB_OUTPUT"
+
       - name: Set up Python
+        if: steps.preflight.outputs.should_run == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       - name: Install dependencies
+        if: steps.preflight.outputs.should_run == 'true'
         run: |
           pip install -r requirements.txt
           python -m playwright install chromium
 
       - name: Generate iCalendar
+        if: steps.preflight.outputs.should_run == 'true'
         env:
           JW_BASE_URL: ${{ vars.JW_BASE_URL || 'https://jwxt.njfu.edu.cn' }}
           JW_USERNAME: ${{ secrets.JW_USERNAME }}
@@ -43,6 +63,7 @@ jobs:
           JW_PROVIDER: qz_browser
           EXCLUDE_DATES: ${{ vars.EXCLUDE_DATES }}
           MAKEUP_DATES: ${{ vars.MAKEUP_DATES }}
+          MAKEUP_DAY_MAP: ${{ vars.MAKEUP_DAY_MAP }}
           AUTO_EXCLUDE_HOLIDAYS: ${{ vars.AUTO_EXCLUDE_HOLIDAYS || 'true' }}
           HOLIDAY_ICS_URLS: ${{ vars.HOLIDAY_ICS_URLS }}
           INCLUDE_EXAMS: ${{ vars.INCLUDE_EXAMS || 'false' }}
@@ -50,6 +71,7 @@ jobs:
         run: python scripts/sync_calendar.py
 
       - name: Commit changes
+        if: steps.preflight.outputs.should_run == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

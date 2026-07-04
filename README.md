@@ -27,6 +27,7 @@ python scripts/sync_calendar.py
 - `TERM_FIRST_MONDAY`：教学第一周周一日期，这个必须准确，否则日历日期会偏移。
 - `EXCLUDE_DATES`：不上课日期，支持单日和范围，例如 `2026-04-04..2026-04-06,2026-05-01..2026-05-05`。
 - `MAKEUP_DATES`：学校补课/照常上课日期，这些日期即使在法定假期里也不会跳过。
+- `MAKEUP_DAY_MAP`：按另一日期课表补课，例如 `2026-05-09=2026-05-04` 表示 5 月 9 日按 5 月 4 日课表生成。
 - `AUTO_EXCLUDE_HOLIDAYS`：是否自动从外部 `.ics` 假期日历跳过法定节假日，默认 `true`。
 - `HOLIDAY_ICS_URLS`：外部假期日历地址，不填时默认使用 YangH9/ChinaCalendar 的法定节假日时间段版本。
 - `INCLUDE_EXAMS`：是否尝试把考试安排加入日历，默认 `false`。
@@ -59,10 +60,13 @@ Variables:
 - `CALENDAR_REFRESH_INTERVAL`，写入 `.ics` 的建议刷新周期，默认 `PT6H`
 - `EXCLUDE_DATES`，法定节假日或学校临时停课日期，例如 `2026-04-04..2026-04-06,2026-05-01..2026-05-05,2026-06-19`
 - `MAKEUP_DATES`，学校补课/照常上课日期，例如 `2026-05-04`
+- `MAKEUP_DAY_MAP`，补课日期映射，例如 `2026-05-09=2026-05-04`
 - `AUTO_EXCLUDE_HOLIDAYS`，默认 `true`
 - `HOLIDAY_ICS_URLS`，外部假期日历地址；不填时默认使用 `https://raw.githubusercontent.com/YangH9/ChinaCalendar/master/cal_holiday_1.ics`
 - `INCLUDE_EXAMS`，设为 `true` 后会尝试抓取考试安排页面
 - `EXAM_URLS`，可选，考试安排页面地址；不填会尝试强智常见考试安排路径
+- `SYNC_ENABLED`，默认 `true`。设为 `false` 后 workflow 会在安装依赖前退出
+- `SYNC_UNTIL`，例如 `2026-06-30`。超过该日期后 workflow 会在安装依赖前退出，适合结课后停止主动监控
 
 工作流文件在 `.github/workflows/sync-calendar.yml`，默认每天北京时间 06:23 同步一次，推送代码和手动运行也会触发同步。
 
@@ -92,7 +96,7 @@ Variables:
 - 07-08 节：15:55-17:30
 - 09-10 节：18:30-20:05
 
-默认会从外部 `.ics` 假期日历中读取 `SUMMARY` 含“假期”的全天事件，自动跳过普通课程；`补班` 不会被当成假期过滤。`MAKEUP_DATES` 的优先级更高，适合学校通知“假期中某天补课/照常上课”的情况。`EXCLUDE_DATES` 仍然保留给学校临时停课、运动会、考试周停课等校内安排。考试安排不会被这些跳过日期过滤。
+默认会从外部 `.ics` 假期日历中读取 `SUMMARY` 含“假期”的全天事件，自动跳过普通课程；`补班` 不会被当成假期过滤。`MAKEUP_DATES` 的优先级更高，适合学校通知“假期中某天补课/照常上课”的情况。`MAKEUP_DAY_MAP` 用来处理“周末按某个工作日/教学日课表补课”的情况，会复制源日期课程到实际补课日期。`EXCLUDE_DATES` 仍然保留给学校临时停课、运动会、考试周停课等校内安排。考试安排不会被这些跳过日期过滤。
 
 ## 下学期继续使用
 
@@ -103,6 +107,8 @@ Variables:
 - `TERM_WEEKS`
 - `EXCLUDE_DATES`
 - `MAKEUP_DATES`
+- `MAKEUP_DAY_MAP`
+- `SYNC_UNTIL`
 
 Apple 日历仍然订阅同一个 `.ics` 地址，GitHub Actions 重新生成文件后会自动刷新。
 

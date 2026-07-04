@@ -63,6 +63,7 @@ class Settings:
     provider: str
     excluded_dates: frozenset[date]
     makeup_dates: frozenset[date]
+    makeup_day_map: dict[date, date]
     auto_exclude_holidays: bool
     holiday_ics_urls: tuple[str, ...]
     include_exams: bool
@@ -145,6 +146,24 @@ def parse_date_set(value: Optional[str], name: str) -> frozenset[date]:
     return frozenset(dates)
 
 
+def parse_date_map(value: Optional[str], name: str) -> dict[date, date]:
+    if not value:
+        return {}
+    mapped: dict[date, date] = {}
+    for raw_part in re.split(r"[,，\n]", value):
+        part = raw_part.strip()
+        if not part:
+            continue
+        separator = "=>" if "=>" in part else "=" if "=" in part else None
+        if separator is None:
+            raise SyncError(f"{name} item must use ACTUAL=SOURCE, got {part!r}")
+        actual_text, source_text = [item.strip() for item in part.split(separator, 1)]
+        actual = parse_date(actual_text, name)
+        source = parse_date(source_text, name)
+        mapped[actual] = source
+    return mapped
+
+
 def parse_url_list(value: Optional[str]) -> tuple[str, ...]:
     if not value:
         return tuple(DEFAULT_EXAM_URLS)
@@ -195,6 +214,7 @@ def load_settings(args: argparse.Namespace) -> Settings:
             env("MAKEUP_DATES", env("KEEP_DATES")),
             "MAKEUP_DATES",
         ),
+        makeup_day_map=parse_date_map(env("MAKEUP_DAY_MAP"), "MAKEUP_DAY_MAP"),
         auto_exclude_holidays=parse_bool(env("AUTO_EXCLUDE_HOLIDAYS"), default=True),
         holiday_ics_urls=parse_holiday_url_list(env("HOLIDAY_ICS_URLS", env("HOLIDAY_ICS_URL"))),
         include_exams=parse_bool(env("INCLUDE_EXAMS"), default=False),
@@ -652,6 +672,36 @@ def filter_excluded_dates(settings: Settings, events: list[CourseEvent]) -> list
     ]
 
 
+def apply_makeup_day_map(settings: Settings, events: list[CourseEvent]) -> list[CourseEvent]:
+    if not settings.makeup_day_map:
+        return events
+    expanded = list(events)
+    seen = {stable_event_uid(event) for event in expanded}
+    for actual_date, source_date in settings.makeup_day_map.items():
+        for event in events:
+            if event.event_type != "course" or event.starts_at.date() != source_date:
+                continue
+            starts_at = datetime.combine(actual_date, event.starts_at.time())
+            ends_at = datetime.combine(actual_date, event.ends_at.time())
+            raw = dict(event.raw)
+            raw["makeup_from"] = source_date.isoformat()
+            makeup_event = CourseEvent(
+                title=event.title,
+                teacher=event.teacher,
+                location=event.location,
+                starts_at=starts_at,
+                ends_at=ends_at,
+                week=event.week,
+                raw=raw,
+                event_type=event.event_type,
+            )
+            key = stable_event_uid(makeup_event)
+            if key not in seen:
+                seen.add(key)
+                expanded.append(makeup_event)
+    return expanded
+
+
 def fetch_holiday_dates(settings: Settings) -> set[date]:
     dates: set[date] = set()
     for url in settings.holiday_ics_urls:
@@ -826,6 +876,9 @@ def generate_ics(settings: Settings, events: list[CourseEvent]) -> str:
         seat = normalize_text(event.raw.get("seat"))
         if seat:
             description_parts.append(f"座位：{seat}")
+        makeup_from = normalize_text(event.raw.get("makeup_from"))
+        if makeup_from:
+            description_parts.append(f"补课源日期：{makeup_from}")
         lines.extend(
             [
                 "BEGIN:VEVENT",
@@ -890,6 +943,7 @@ def run(settings: Settings, raw_json: Optional[Path] = None) -> None:
             raise SyncError(f"Unsupported JW_PROVIDER: {settings.provider}")
         rows = QiangzhiAppClient(settings).fetch_term()
         events = course_rows_to_events(settings, rows)
+    events = apply_makeup_day_map(settings, events)
     events = filter_excluded_dates(settings, events)
     events = sorted(events, key=lambda item: (item.starts_at, item.ends_at, item.title))
     settings.output_ics.parent.mkdir(parents=True, exist_ok=True)
