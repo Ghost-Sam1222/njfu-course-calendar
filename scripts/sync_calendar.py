@@ -508,7 +508,11 @@ async def fetch_web_pages_with_browser(settings: Settings) -> BrowserFetchResult
             if "authserver/login" in page.url:
                 raise SyncError("Browser login stayed on the unified-auth login page.")
             await page.goto(TIMETABLE_URL, wait_until="domcontentloaded", timeout=60000)
-            await page.wait_for_selector("#timetable", timeout=60000)
+            try:
+                await page.wait_for_selector("#timetable", timeout=60000)
+            except Exception as exc:
+                page_summary = await describe_browser_page(page, settings)
+                raise SyncError(f"Could not find #timetable after login: {page_summary}") from exc
             timetable_html = await page.content()
             exam_html = None
             if settings.include_exams:
@@ -728,7 +732,28 @@ def exam_row_to_event(settings: Settings, row: dict[str, str]) -> Optional[Cours
         week=0,
         raw=raw,
         event_type="exam",
-    )
+        )
+
+
+def redact_sensitive_text(text: str, settings: Settings) -> str:
+    redacted = text
+    for secret in (settings.username, settings.password):
+        if secret:
+            redacted = redacted.replace(secret, "***")
+    return redacted
+
+
+async def describe_browser_page(page: Any, settings: Settings) -> str:
+    try:
+        title = await page.title()
+    except Exception:
+        title = ""
+    try:
+        body_text = await page.locator("body").inner_text(timeout=5000)
+    except Exception:
+        body_text = ""
+    body_text = normalize_text(redact_sensitive_text(body_text, settings))[:500]
+    return f"url={page.url!r}, title={title!r}, body={body_text!r}"
 
 
 def exam_html_to_events(settings: Settings, html: str) -> list[CourseEvent]:
