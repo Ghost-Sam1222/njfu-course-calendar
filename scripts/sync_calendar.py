@@ -13,12 +13,12 @@ from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
 from typing import Any, Optional
-from urllib.parse import urljoin
+from urllib.parse import urlencode, urljoin
 from urllib.request import Request, urlopen
 
 DEFAULT_BASE_URL = "https://jwxt.njfu.edu.cn"
 DEFAULT_TZ = "Asia/Shanghai"
-TIMETABLE_URL = "https://jwxt.njfu.edu.cn/jsxsd/xskb/xskb_list.do?Ves632DSdyV=NEW_XSD_PYGL"
+TIMETABLE_PATH = "jsxsd/xskb/xskb_list.do"
 LOGIN_ENTRY_URL = "https://jwxt.njfu.edu.cn/jsxsd/framework/xsMainV.jsp"
 DEFAULT_EXAM_URLS = [
     "https://jwxt.njfu.edu.cn/jsxsd/xsks/xsksap_list.do",
@@ -108,6 +108,16 @@ def env(name: str, default: Optional[str] = None) -> Optional[str]:
     if value is None or value == "":
         return default
     return value
+
+
+def build_timetable_url(settings: Settings) -> str:
+    params = urlencode(
+        {
+            "Ves632DSdyV": "NEW_XSD_PYGL",
+            "xnxq01id": settings.semester,
+        }
+    )
+    return f"{urljoin(settings.base_url, TIMETABLE_PATH)}?{params}"
 
 
 def require_env(name: str) -> str:
@@ -507,7 +517,7 @@ async def fetch_web_pages_with_browser(settings: Settings) -> BrowserFetchResult
                 await page.wait_for_timeout(2000)
             if "authserver/login" in page.url:
                 raise SyncError("Browser login stayed on the unified-auth login page.")
-            await page.goto(TIMETABLE_URL, wait_until="domcontentloaded", timeout=60000)
+            await page.goto(build_timetable_url(settings), wait_until="domcontentloaded", timeout=60000)
             try:
                 await page.wait_for_selector("#timetable", timeout=60000)
             except Exception as exc:
