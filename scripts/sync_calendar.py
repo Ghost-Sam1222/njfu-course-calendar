@@ -27,6 +27,21 @@ DEFAULT_EXAM_URLS = [
 DEFAULT_HOLIDAY_ICS_URLS = [
     "https://raw.githubusercontent.com/YangH9/ChinaCalendar/master/cal_holiday_1.ics",
 ]
+LUNAR_NEW_YEAR_DATES = {
+    2024: date(2024, 2, 10),
+    2025: date(2025, 1, 29),
+    2026: date(2026, 2, 17),
+    2027: date(2027, 2, 6),
+    2028: date(2028, 1, 26),
+    2029: date(2029, 2, 13),
+    2030: date(2030, 2, 3),
+    2031: date(2031, 1, 23),
+    2032: date(2032, 2, 11),
+    2033: date(2033, 1, 31),
+    2034: date(2034, 2, 19),
+    2035: date(2035, 2, 8),
+    2036: date(2036, 1, 28),
+}
 SECTION_TIMES = {
     1: ("08:00", "08:45"),
     2: ("08:55", "09:40"),
@@ -107,6 +122,148 @@ def infer_semester(today: date) -> str:
     if today.month >= 8:
         return f"{today.year}-{today.year + 1}-1"
     return f"{today.year - 1}-{today.year}-2"
+
+
+def monday_on_or_before(value: date) -> date:
+    return value - timedelta(days=value.weekday())
+
+
+def fallback_spring_anchor(year: int) -> date:
+    lunar_new_year = LUNAR_NEW_YEAR_DATES.get(year)
+    if lunar_new_year:
+        return lunar_new_year + timedelta(days=14)
+    return date(year, 2, 24)
+
+
+def term_anchor_date(semester: str) -> Optional[date]:
+    match = re.match(r"(\d{4})-(\d{4})-([12])$", semester)
+    if not match:
+        return None
+    start_year, end_year, term = match.groups()
+    if term == "1":
+        return date(int(start_year), 9, 1)
+    return fallback_spring_anchor(int(end_year))
+
+
+def infer_first_monday_from_semester(semester: str) -> Optional[date]:
+    anchor = term_anchor_date(semester)
+    if anchor is None:
+        return None
+    return monday_on_or_before(anchor)
+
+
+def request_json(endpoint: str, label: str, params: dict[str, str]) -> Any:
+    try:
+        import requests
+    except ImportError as exc:
+        raise SyncError("Missing dependency: requests. Run `pip install -r requirements.txt`.") from exc
+
+    response = requests.get(
+        endpoint,
+        params=params,
+        headers={
+            "User-Agent": "course-calendar-sync/1.0 (+https://github.com/Ghost-Sam1222/njfu-course-calendar)",
+            "Accept": "application/json, text/plain, */*",
+        },
+        timeout=20,
+    )
+    text = response.text.strip()
+    if response.status_code >= 400:
+        raise SyncError(f"{label} HTTP {response.status_code}: {text[:200]}")
+    try:
+        return response.json()
+    except ValueError as exc:
+        raise SyncError(f"{label} did not return JSON. First 200 chars: {text[:200]!r}") from exc
+
+
+def flatten_dicts(value: Any) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    if isinstance(value, dict):
+        rows.append(value)
+        for child in value.values():
+            rows.extend(flatten_dicts(child))
+    elif isinstance(value, list):
+        for child in value:
+            rows.extend(flatten_dicts(child))
+    return rows
+
+
+def parse_int_from_value(value: Any) -> Optional[int]:
+    match = re.search(r"\d+", normalize_text(value))
+    return int(match.group(0)) if match else None
+
+
+def parse_any_date(value: Any) -> Optional[date]:
+    text = normalize_text(value)
+    match = re.search(r"(\d{4})[-/.年](\d{1,2})[-/.月](\d{1,2})", text)
+    if not match:
+        return None
+    year, month, day = (int(item) for item in match.groups())
+    return date(year, month, day)
+
+
+def find_semester_value(row: dict[str, Any]) -> Optional[str]:
+    for key in ("xnxqid", "xnxqh", "xnxq", "dqxn", "currentSemester"):
+        value = normalize_text(row.get(key))
+        if re.fullmatch(r"\d{4}-\d{4}-[12]", value):
+            return value
+    for value in row.values():
+        text = normalize_text(value)
+        match = re.search(r"(\d{4}-\d{4}-[12])", text)
+        if match:
+            return match.group(1)
+    return None
+
+
+def resolve_term_from_qz(base_url: str, today: date) -> tuple[Optional[str], Optional[date]]:
+    endpoint = urljoin(base_url, "app.do")
+    payload = request_json(
+        endpoint,
+        "current teaching week",
+        params={"method": "getCurrentTime", "currDate": today.isoformat()},
+    )
+    for row in flatten_dicts(payload):
+        week = None
+        for key in ("zc", "week", "dqzc", "currentWeek"):
+            week = parse_int_from_value(row.get(key))
+            if week:
+                break
+        week_start = None
+        for key in ("s_time", "startTime", "startDate", "kssj", "weekStart"):
+            week_start = parse_any_date(row.get(key))
+            if week_start:
+                break
+        if week and week_start:
+            semester = find_semester_value(row)
+            return semester, week_start - timedelta(weeks=week - 1)
+    return None, None
+
+
+def infer_term_info(
+    base_url: str,
+    today: date,
+    semester_hint: Optional[str] = None,
+) -> tuple[str, date]:
+    fallback_semester = semester_hint or infer_semester(today)
+    probe_date = term_anchor_date(fallback_semester) or today
+    qz_semester: Optional[str] = None
+    qz_first_monday: Optional[date] = None
+    try:
+        qz_semester, qz_first_monday = resolve_term_from_qz(base_url, probe_date)
+    except Exception as exc:
+        print(f"warning: could not read term dates from Qiangzhi: {exc}", file=sys.stderr)
+
+    semester = semester_hint or qz_semester or fallback_semester
+    first_monday = (
+        monday_on_or_before(qz_first_monday)
+        if qz_first_monday
+        else infer_first_monday_from_semester(semester)
+    )
+    if first_monday is None:
+        raise SyncError(
+            "Could not infer TERM_FIRST_MONDAY. Set TERM_FIRST_MONDAY=YYYY-MM-DD manually."
+        )
+    return semester, first_monday
 
 
 def parse_date(value: str, name: str) -> date:
@@ -192,13 +349,30 @@ def load_dotenv(path: Path) -> None:
 def load_settings(args: argparse.Namespace) -> Settings:
     load_dotenv(Path(".env"))
     today = date.today()
-    first_monday = require_env("TERM_FIRST_MONDAY")
+    base_url = env("JW_BASE_URL", DEFAULT_BASE_URL).rstrip("/") + "/"
+    semester_text = env("JW_SEMESTER")
+    first_monday_text = env("TERM_FIRST_MONDAY")
+    if semester_text and first_monday_text:
+        semester = semester_text
+        first_monday = parse_date(first_monday_text, "TERM_FIRST_MONDAY")
+    else:
+        inferred_semester, inferred_first_monday = infer_term_info(
+            base_url,
+            today,
+            semester_text,
+        )
+        semester = semester_text or inferred_semester
+        first_monday = (
+            parse_date(first_monday_text, "TERM_FIRST_MONDAY")
+            if first_monday_text
+            else infer_first_monday_from_semester(semester) or inferred_first_monday
+        )
     return Settings(
-        base_url=env("JW_BASE_URL", DEFAULT_BASE_URL).rstrip("/") + "/",
+        base_url=base_url,
         username=require_env("JW_USERNAME"),
         password=require_env("JW_PASSWORD"),
-        semester=env("JW_SEMESTER", infer_semester(today)),
-        first_monday=parse_date(first_monday, "TERM_FIRST_MONDAY"),
+        semester=semester,
+        first_monday=first_monday,
         term_weeks=int(env("TERM_WEEKS", "20")),
         calendar_name=env("CALENDAR_NAME", "南林课表"),
         timezone_id=env("CALENDAR_TIMEZONE", DEFAULT_TZ),

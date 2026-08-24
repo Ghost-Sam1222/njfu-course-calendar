@@ -23,8 +23,8 @@ python scripts/sync_calendar.py
 
 - `JW_USERNAME`：学号
 - `JW_PASSWORD`：教务系统密码
-- `JW_SEMESTER`：学期，例如 `2025-2026-2`。不填时会按日期自动推断。
-- `TERM_FIRST_MONDAY`：教学第一周周一日期，这个必须准确，否则日历日期会偏移。
+- `JW_SEMESTER`：学期，例如 `2026-2027-1`。不填时会优先读取强智教学周接口，失败后按日期自动推断。
+- `TERM_FIRST_MONDAY`：教学第一周周一日期。不填时会优先读取强智教学周接口，失败后按规则推断；如果学校校历特殊，建议手动填写，否则日历日期可能偏移。
 - `EXCLUDE_DATES`：不上课日期，支持单日和范围，例如 `2026-04-04..2026-04-06,2026-05-01..2026-05-05`。
 - `MAKEUP_DATES`：学校补课/照常上课日期，这些日期即使在法定假期里也不会跳过。
 - `MAKEUP_DAY_MAP`：按另一日期课表补课，例如 `2026-05-09=2026-05-04` 表示 5 月 9 日按 5 月 4 日课表生成。
@@ -37,7 +37,7 @@ python scripts/sync_calendar.py
 不登录教务系统也可以先验证 iCalendar 生成：
 
 ```bash
-JW_USERNAME=demo JW_PASSWORD=demo TERM_FIRST_MONDAY=2026-02-23 \
+JW_USERNAME=demo JW_PASSWORD=demo TERM_FIRST_MONDAY=2026-08-31 \
 python scripts/sync_calendar.py --raw-json examples/sample-qz-app.json
 ```
 
@@ -52,8 +52,8 @@ Secrets:
 
 Variables:
 
-- `TERM_FIRST_MONDAY`，例如 `2026-02-23`
-- `JW_SEMESTER`，例如 `2025-2026-2`
+- `TERM_FIRST_MONDAY`，可选，例如 `2026-08-31`
+- `JW_SEMESTER`，可选，例如 `2026-2027-1`
 - `TERM_WEEKS`，默认 `20`
 - `CALENDAR_NAME`，默认 `南林课表`
 - `JW_BASE_URL`，默认 `https://jwxt.njfu.edu.cn`
@@ -98,10 +98,21 @@ Variables:
 
 默认会从外部 `.ics` 假期日历中读取 `SUMMARY` 含“假期”的全天事件，自动跳过普通课程；`补班` 不会被当成假期过滤。`MAKEUP_DATES` 的优先级更高，适合学校通知“假期中某天补课/照常上课”的情况。`MAKEUP_DAY_MAP` 用来处理“周末按某个工作日/教学日课表补课”的情况，会复制源日期课程到实际补课日期。`EXCLUDE_DATES` 仍然保留给学校临时停课、运动会、考试周停课等校内安排。考试安排不会被这些跳过日期过滤。
 
+## 学期自动识别
+
+脚本会按下面顺序确定学期和教学第一周周一：
+
+1. 如果配置了 `JW_SEMESTER` 和 `TERM_FIRST_MONDAY`，直接使用配置值。
+2. 如果缺少其中任意一项，先尝试请求强智 `app.do?method=getCurrentTime` 教学周接口。秋季学期用 9 月 1 日作为探测日期，春季学期用正月十五作为探测日期，再从返回的学年学期、当前周次和本周起始日期反推教学第一周周一。
+3. 如果强智接口不可用，使用本地规则兜底：8 月及以后视为秋季学期，学期第一周周一取 9 月 1 日所在周的周一；1-7 月视为春季学期，学期第一周周一取正月十五所在周的周一。
+
+例如今天是 `2026-08-24` 时，兜底规则会推断为 `2026-2027-1`，教学第一周周一为 `2026-08-31`。如果学校发布的校历与这个规则不同，仍然以手动设置 `TERM_FIRST_MONDAY` 为准。
+
 ## 下学期继续使用
 
-订阅链接不需要换。每学期开学前只需要在 GitHub 仓库 Settings -> Secrets and variables -> Actions -> Variables 更新：
+订阅链接不需要换。每学期开学前建议在 GitHub 仓库 Settings -> Secrets and variables -> Actions -> Variables 检查：
 
+- `SYNC_ENABLED`
 - `JW_SEMESTER`
 - `TERM_FIRST_MONDAY`
 - `TERM_WEEKS`
