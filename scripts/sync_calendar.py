@@ -1125,6 +1125,11 @@ def run(settings: Settings, raw_json: Optional[Path] = None) -> None:
     events = apply_makeup_day_map(settings, events)
     events = filter_excluded_dates(settings, events)
     events = sorted(events, key=lambda item: (item.starts_at, item.ends_at, item.title))
+    if not events:
+        raise SyncError(
+            f"Timetable returned no events for {settings.semester}. "
+            "Refusing to overwrite the published calendar."
+        )
     settings.output_ics.parent.mkdir(parents=True, exist_ok=True)
     settings.output_ics.write_text(generate_ics(settings, events), encoding="utf-8")
     write_json(settings.output_json, events)
