@@ -1108,10 +1108,15 @@ def run(settings: Settings, raw_json: Optional[Path] = None) -> None:
         rows = load_raw_rows(raw_json)
         events = course_rows_to_events(settings, rows)
     elif settings.provider == "qz_browser":
-        pages = asyncio.run(fetch_web_pages_with_browser(settings))
-        events = web_html_to_events(settings, pages.timetable_html)
-        if pages.exam_html:
-            events.extend(exam_html_to_events(settings, pages.exam_html))
+        try:
+            pages = asyncio.run(fetch_web_pages_with_browser(settings))
+            events = web_html_to_events(settings, pages.timetable_html)
+            if pages.exam_html:
+                events.extend(exam_html_to_events(settings, pages.exam_html))
+        except Exception as exc:
+            print(f"warning: browser timetable fetch failed, trying Qiangzhi app API: {exc}", file=sys.stderr)
+            rows = QiangzhiAppClient(settings).fetch_term()
+            events = course_rows_to_events(settings, rows)
     else:
         if settings.provider != "qz_app":
             raise SyncError(f"Unsupported JW_PROVIDER: {settings.provider}")
