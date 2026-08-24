@@ -512,7 +512,7 @@ async def fetch_web_pages_with_browser(settings: Settings) -> BrowserFetchResult
             if "authserver/login" in page.url:
                 await page.fill("#username", settings.username)
                 await page.fill("#password", settings.password)
-                await page.click('button[type="submit"]')
+                await page.click('button[type="submit"]', no_wait_after=True)
                 await page.wait_for_load_state("domcontentloaded", timeout=60000)
                 await page.wait_for_timeout(2000)
             if "authserver/login" in page.url:
