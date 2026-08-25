@@ -1182,6 +1182,19 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def is_temporary_source_unavailable(exc: SyncError) -> bool:
+    text = str(exc)
+    markers = (
+        "HTTP 403",
+        "access_forbidden",
+        "禁止访问",
+        "系统正在维护",
+        "Timetable returned no events",
+        "Could not find #timetable",
+    )
+    return any(marker in text for marker in markers)
+
+
 def main() -> int:
     try:
         args = build_parser().parse_args()
@@ -1189,6 +1202,10 @@ def main() -> int:
         run(settings, Path(args.raw_json) if args.raw_json else None)
         return 0
     except SyncError as exc:
+        if parse_bool(env("SOFT_FAIL_ON_SOURCE_UNAVAILABLE"), default=True) and is_temporary_source_unavailable(exc):
+            print(f"warning: {exc}", file=sys.stderr)
+            print("warning: source is temporarily unavailable; keeping the previously published calendar.")
+            return 0
         print(f"error: {exc}", file=sys.stderr)
         return 1
 

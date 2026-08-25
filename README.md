@@ -67,6 +67,7 @@ Variables:
 - `EXAM_URLS`，可选，考试安排页面地址；不填会尝试强智常见考试安排路径
 - `SYNC_ENABLED`，默认 `true`。设为 `false` 后 workflow 会在安装依赖前退出
 - `SYNC_UNTIL`，例如 `2026-06-30`。超过该日期后 workflow 会在安装依赖前退出，适合结课后停止主动监控
+- `SOFT_FAIL_ON_SOURCE_UNAVAILABLE`，默认 `true`。教务系统临时 403、维护、课表未公布或空课表时保留旧日历并让 workflow 退出成功，避免每天发送失败邮件；设为 `false` 可改回严格失败模式
 
 工作流文件在 `.github/workflows/sync-calendar.yml`，默认每天北京时间 06:23 同步一次，推送代码和手动运行也会触发同步。
 

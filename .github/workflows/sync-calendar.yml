@@ -68,6 +68,7 @@ jobs:
           HOLIDAY_ICS_URLS: ${{ vars.HOLIDAY_ICS_URLS }}
           INCLUDE_EXAMS: ${{ vars.INCLUDE_EXAMS || 'false' }}
           EXAM_URLS: ${{ vars.EXAM_URLS }}
+          SOFT_FAIL_ON_SOURCE_UNAVAILABLE: ${{ vars.SOFT_FAIL_ON_SOURCE_UNAVAILABLE || 'true' }}
         run: python scripts/sync_calendar.py
 
       - name: Commit changes
