@@ -1189,6 +1189,8 @@ def is_temporary_source_unavailable(exc: SyncError) -> bool:
         "access_forbidden",
         "禁止访问",
         "系统正在维护",
+        "出错页面",
+        "did not return JSON",
         "Timetable returned no events",
         "Could not find #timetable",
     )
