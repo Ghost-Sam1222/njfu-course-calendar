@@ -366,6 +366,44 @@
     }
   },
   {
+    "title": "数字信号处理",
+    "teacher": "胡洁",
+    "location": "50109",
+    "starts_at": "2026-09-20T08:00:00",
+    "ends_at": "2026-09-20T09:40:00",
+    "week": 6,
+    "event_type": "course",
+    "raw": {
+      "source": "web",
+      "week_spec": "1-12(周)[01-02节]",
+      "sections": [
+        1,
+        2
+      ],
+      "weekday": 2,
+      "makeup_from": "2026-10-06"
+    }
+  },
+  {
+    "title": "传感器原理及测量技术",
+    "teacher": "问磊",
+    "location": "50320",
+    "starts_at": "2026-09-20T14:00:00",
+    "ends_at": "2026-09-20T15:35:00",
+    "week": 6,
+    "event_type": "course",
+    "raw": {
+      "source": "web",
+      "week_spec": "1-14(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 2,
+      "makeup_from": "2026-10-06"
+    }
+  },
+  {
     "title": "FPGA及其应用",
     "teacher": "吴海青",
     "location": "50106",
@@ -494,154 +532,6 @@
     }
   },
   {
-    "title": "FPGA及其应用实验",
-    "teacher": "吴海青",
-    "location": "电子实验室(5、6楼)",
-    "starts_at": "2026-09-28T08:00:00",
-    "ends_at": "2026-09-28T10:45:00",
-    "week": 5,
-    "event_type": "course",
-    "raw": {
-      "source": "web",
-      "week_spec": "5-10(周)[01-02-03节]",
-      "sections": [
-        1,
-        2,
-        3
-      ],
-      "weekday": 1
-    }
-  },
-  {
-    "title": "FPGA及其应用",
-    "teacher": "吴海青",
-    "location": "50106",
-    "starts_at": "2026-09-28T14:00:00",
-    "ends_at": "2026-09-28T16:40:00",
-    "week": 5,
-    "event_type": "course",
-    "raw": {
-      "source": "web",
-      "week_spec": "1-11(周)[05-06-07节]",
-      "sections": [
-        5,
-        6,
-        7
-      ],
-      "weekday": 1
-    }
-  },
-  {
-    "title": "数字信号处理",
-    "teacher": "胡洁",
-    "location": "50109",
-    "starts_at": "2026-09-29T08:00:00",
-    "ends_at": "2026-09-29T09:40:00",
-    "week": 5,
-    "event_type": "course",
-    "raw": {
-      "source": "web",
-      "week_spec": "1-12(周)[01-02节]",
-      "sections": [
-        1,
-        2
-      ],
-      "weekday": 2
-    }
-  },
-  {
-    "title": "传感器原理及测量技术",
-    "teacher": "问磊",
-    "location": "50320",
-    "starts_at": "2026-09-29T14:00:00",
-    "ends_at": "2026-09-29T15:35:00",
-    "week": 5,
-    "event_type": "course",
-    "raw": {
-      "source": "web",
-      "week_spec": "1-14(周)[05-06节]",
-      "sections": [
-        5,
-        6
-      ],
-      "weekday": 2
-    }
-  },
-  {
-    "title": "工程数学",
-    "teacher": "王婷",
-    "location": "50111",
-    "starts_at": "2026-09-30T08:00:00",
-    "ends_at": "2026-09-30T10:45:00",
-    "week": 5,
-    "event_type": "course",
-    "raw": {
-      "source": "web",
-      "week_spec": "1-11(周)[01-02-03节]",
-      "sections": [
-        1,
-        2,
-        3
-      ],
-      "weekday": 3
-    }
-  },
-  {
-    "title": "通信电子线路B",
-    "teacher": "刘晓明",
-    "location": "50102",
-    "starts_at": "2026-09-30T14:00:00",
-    "ends_at": "2026-09-30T15:35:00",
-    "week": 5,
-    "event_type": "course",
-    "raw": {
-      "source": "web",
-      "week_spec": "3-14(周)[05-06节]",
-      "sections": [
-        5,
-        6
-      ],
-      "weekday": 3
-    }
-  },
-  {
-    "title": "工程数学",
-    "teacher": "王婷",
-    "location": "50111",
-    "starts_at": "2026-10-07T08:00:00",
-    "ends_at": "2026-10-07T10:45:00",
-    "week": 6,
-    "event_type": "course",
-    "raw": {
-      "source": "web",
-      "week_spec": "1-11(周)[01-02-03节]",
-      "sections": [
-        1,
-        2,
-        3
-      ],
-      "weekday": 3
-    }
-  },
-  {
-    "title": "通信电子线路B",
-    "teacher": "刘晓明",
-    "location": "50102",
-    "starts_at": "2026-10-07T14:00:00",
-    "ends_at": "2026-10-07T15:35:00",
-    "week": 6,
-    "event_type": "course",
-    "raw": {
-      "source": "web",
-      "week_spec": "3-14(周)[05-06节]",
-      "sections": [
-        5,
-        6
-      ],
-      "weekday": 3
-    }
-  },
-  {
     "title": "传感器原理及测量技术",
     "teacher": "问磊",
     "location": "50306",
@@ -750,6 +640,45 @@
         11
       ],
       "weekday": 5
+    }
+  },
+  {
+    "title": "工程数学",
+    "teacher": "王婷",
+    "location": "50111",
+    "starts_at": "2026-10-10T08:00:00",
+    "ends_at": "2026-10-10T10:45:00",
+    "week": 6,
+    "event_type": "course",
+    "raw": {
+      "source": "web",
+      "week_spec": "1-11(周)[01-02-03节]",
+      "sections": [
+        1,
+        2,
+        3
+      ],
+      "weekday": 3,
+      "makeup_from": "2026-10-07"
+    }
+  },
+  {
+    "title": "通信电子线路B",
+    "teacher": "刘晓明",
+    "location": "50102",
+    "starts_at": "2026-10-10T14:00:00",
+    "ends_at": "2026-10-10T15:35:00",
+    "week": 6,
+    "event_type": "course",
+    "raw": {
+      "source": "web",
+      "week_spec": "3-14(周)[05-06节]",
+      "sections": [
+        5,
+        6
+      ],
+      "weekday": 3,
+      "makeup_from": "2026-10-07"
     }
   },
   {
