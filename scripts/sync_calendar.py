@@ -42,6 +42,8 @@ LUNAR_NEW_YEAR_DATES = {
     2035: date(2035, 2, 8),
     2036: date(2036, 1, 28),
 }
+DEFAULT_SCHOOL_EXCLUDE_DATES = "2026-09-25..2026-10-07"
+DEFAULT_SCHOOL_MAKEUP_DAY_MAP = "2026-09-20=2026-10-06,2026-10-10=2026-10-07"
 SECTION_TIMES = {
     1: ("08:00", "08:45"),
     2: ("08:55", "09:40"),
@@ -377,6 +379,17 @@ def load_settings(args: argparse.Namespace) -> Settings:
             if first_monday_text
             else infer_first_monday_from_semester(semester) or inferred_first_monday
         )
+    excluded_dates = set(parse_date_set(DEFAULT_SCHOOL_EXCLUDE_DATES, "DEFAULT_SCHOOL_EXCLUDE_DATES"))
+    excluded_dates.update(
+        parse_date_set(
+            env("EXCLUDE_DATES", env("SKIP_DATES")),
+            "EXCLUDE_DATES",
+        )
+    )
+    makeup_day_map = parse_date_map(DEFAULT_SCHOOL_MAKEUP_DAY_MAP, "DEFAULT_SCHOOL_MAKEUP_DAY_MAP")
+    makeup_day_map.update(parse_date_map(env("MAKEUP_DAY_MAP"), "MAKEUP_DAY_MAP"))
+    makeup_dates = set(parse_date_set(env("MAKEUP_DATES", env("KEEP_DATES")), "MAKEUP_DATES"))
+    makeup_dates.update(makeup_day_map)
     return Settings(
         base_url=base_url,
         username=require_env("JW_USERNAME"),
@@ -390,15 +403,9 @@ def load_settings(args: argparse.Namespace) -> Settings:
         output_ics=Path(args.output_ics),
         output_json=Path(args.output_json),
         provider=env("JW_PROVIDER", "qz_app"),
-        excluded_dates=parse_date_set(
-            env("EXCLUDE_DATES", env("SKIP_DATES")),
-            "EXCLUDE_DATES",
-        ),
-        makeup_dates=parse_date_set(
-            env("MAKEUP_DATES", env("KEEP_DATES")),
-            "MAKEUP_DATES",
-        ),
-        makeup_day_map=parse_date_map(env("MAKEUP_DAY_MAP"), "MAKEUP_DAY_MAP"),
+        excluded_dates=frozenset(excluded_dates),
+        makeup_dates=frozenset(makeup_dates),
+        makeup_day_map=makeup_day_map,
         auto_exclude_holidays=parse_bool(env("AUTO_EXCLUDE_HOLIDAYS"), default=True),
         holiday_ics_urls=parse_holiday_url_list(env("HOLIDAY_ICS_URLS", env("HOLIDAY_ICS_URL"))),
         include_exams=parse_bool(env("INCLUDE_EXAMS"), default=False),
