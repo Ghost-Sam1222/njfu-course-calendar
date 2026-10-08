@@ -10,7 +10,7 @@ import re
 import sys
 import time as time_module
 import uuid
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
 from typing import Any, Optional
@@ -86,6 +86,7 @@ class Settings:
     holiday_ics_urls: tuple[str, ...]
     include_exams: bool
     exam_urls: tuple[str, ...]
+    overrides_path: Path
 
 
 @dataclass(frozen=True)
@@ -430,6 +431,7 @@ def load_settings(args: argparse.Namespace) -> Settings:
         holiday_ics_urls=parse_holiday_url_list(env("HOLIDAY_ICS_URLS", env("HOLIDAY_ICS_URL"))),
         include_exams=parse_bool(env("INCLUDE_EXAMS"), default=False),
         exam_urls=parse_url_list(env("EXAM_URLS", env("EXAM_URL"))),
+        overrides_path=Path(env("CALENDAR_OVERRIDES_PATH", "data/calendar-overrides.json")),
     )
 
 
@@ -1136,6 +1138,9 @@ def generate_ics(settings: Settings, events: list[CourseEvent]) -> str:
         makeup_from = normalize_text(event.raw.get("makeup_from"))
         if makeup_from:
             description_parts.append(f"补课源日期：{makeup_from}")
+        manual_note = normalize_text(event.raw.get("manual_note"))
+        if manual_note:
+            description_parts.append(manual_note)
         lines.extend(
             [
                 "BEGIN:VEVENT",
@@ -1186,6 +1191,84 @@ def load_raw_rows(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def apply_calendar_overrides(settings: Settings, events: list[CourseEvent]) -> list[CourseEvent]:
+    if not settings.overrides_path.exists():
+        return events
+    try:
+        overrides = json.loads(settings.overrides_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SyncError(f"Could not read calendar overrides: {type(exc).__name__}") from exc
+    if not isinstance(overrides, dict):
+        raise SyncError("Calendar overrides must be a JSON object.")
+
+    cancelled = {
+        (item.get("title"), item.get("starts_at"))
+        for item in overrides.get("cancel", [])
+        if isinstance(item, dict)
+    }
+    updated = {
+        (item.get("title"), item.get("starts_at")): item
+        for item in overrides.get("update", [])
+        if isinstance(item, dict)
+    }
+    result: list[CourseEvent] = []
+    for event in events:
+        key = (event.title, event.starts_at.strftime("%Y-%m-%dT%H:%M:%S"))
+        if key in cancelled:
+            continue
+        update = updated.get(key)
+        if update:
+            ends_at = event.ends_at
+            if isinstance(update.get("ends_at"), str):
+                ends_at = datetime.fromisoformat(update["ends_at"]).replace(tzinfo=event.ends_at.tzinfo)
+            location = update.get("location", event.location)
+            if not isinstance(location, str):
+                raise SyncError(f"Calendar override location must be text for {event.title}.")
+            raw = dict(event.raw)
+            note = update.get("note")
+            if note is not None:
+                if not isinstance(note, str):
+                    raise SyncError(f"Calendar override note must be text for {event.title}.")
+                raw["manual_note"] = note
+            result.append(replace(event, ends_at=ends_at, location=location, raw=raw))
+        else:
+            result.append(event)
+    existing = {
+        (event.title, event.starts_at.strftime("%Y-%m-%dT%H:%M:%S"))
+        for event in result
+    }
+    for item in overrides.get("add", []):
+        if not isinstance(item, dict):
+            continue
+        title = item.get("title")
+        teacher = item.get("teacher")
+        location = item.get("location")
+        starts_at = item.get("starts_at")
+        ends_at = item.get("ends_at")
+        week = item.get("week")
+        if not all(isinstance(value, str) for value in (title, teacher, location, starts_at, ends_at)) or not isinstance(week, int):
+            raise SyncError("Added calendar overrides need title, teacher, location, times, and week.")
+        start = datetime.fromisoformat(starts_at)
+        end = datetime.fromisoformat(ends_at)
+        if end <= start:
+            raise SyncError(f"Added calendar override ends before it starts: {title}.")
+        key = (title, start.strftime("%Y-%m-%dT%H:%M:%S"))
+        if key not in existing:
+            result.append(
+                CourseEvent(
+                    title=title,
+                    teacher=teacher,
+                    location=location,
+                    starts_at=start,
+                    ends_at=end,
+                    week=week,
+                    raw={"source": "manual_override", "manual_note": item.get("note", "")},
+                )
+            )
+            existing.add(key)
+    return result
+
+
 def run(settings: Settings, raw_json: Optional[Path] = None) -> None:
     if raw_json:
         rows = load_raw_rows(raw_json)
@@ -1207,6 +1290,7 @@ def run(settings: Settings, raw_json: Optional[Path] = None) -> None:
         events = course_rows_to_events(settings, rows)
     events = apply_makeup_day_map(settings, events)
     events = filter_excluded_dates(settings, events)
+    events = apply_calendar_overrides(settings, events)
     events = sorted(events, key=lambda item: (item.starts_at, item.ends_at, item.title))
     if not events:
         raise SyncError(

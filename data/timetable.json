@@ -715,26 +715,6 @@
     }
   },
   {
-    "title": "工程数学",
-    "teacher": "王婷",
-    "location": "50111",
-    "starts_at": "2026-10-10T08:00:00",
-    "ends_at": "2026-10-10T10:45:00",
-    "week": 6,
-    "event_type": "course",
-    "raw": {
-      "source": "web",
-      "week_spec": "1-11(周)[01-02-03节]",
-      "sections": [
-        1,
-        2,
-        3
-      ],
-      "weekday": 3,
-      "makeup_from": "2026-10-07"
-    }
-  },
-  {
     "title": "通信电子线路B",
     "teacher": "刘晓明",
     "location": "50102",
@@ -828,25 +808,6 @@
     }
   },
   {
-    "title": "工程数学",
-    "teacher": "王婷",
-    "location": "50111",
-    "starts_at": "2026-10-14T08:00:00",
-    "ends_at": "2026-10-14T10:45:00",
-    "week": 7,
-    "event_type": "course",
-    "raw": {
-      "source": "web",
-      "week_spec": "1-11(周)[01-02-03节]",
-      "sections": [
-        1,
-        2,
-        3
-      ],
-      "weekday": 3
-    }
-  },
-  {
     "title": "通信电子线路B",
     "teacher": "刘晓明",
     "location": "50102",
@@ -903,9 +864,9 @@
   {
     "title": "信号分析与处理实验",
     "teacher": "胡洁",
-    "location": "电气实验室(1、2楼)",
+    "location": "10516",
     "starts_at": "2026-10-15T14:00:00",
-    "ends_at": "2026-10-15T16:40:00",
+    "ends_at": "2026-10-15T18:00:00",
     "week": 7,
     "event_type": "course",
     "raw": {
@@ -916,7 +877,8 @@
         6,
         7
       ],
-      "weekday": 4
+      "weekday": 4,
+      "manual_note": "临时调整：14:00-18:00，地点10516（教师口头通知）"
     }
   },
   {
@@ -1917,6 +1879,19 @@
     }
   },
   {
+    "title": "工程数学",
+    "teacher": "王婷",
+    "location": "50111",
+    "starts_at": "2026-11-18T08:00:00",
+    "ends_at": "2026-11-18T10:45:00",
+    "week": 12,
+    "event_type": "course",
+    "raw": {
+      "source": "manual_override",
+      "manual_note": "补课（教师口头通知）"
+    }
+  },
+  {
     "title": "通信电子线路B",
     "teacher": "刘晓明",
     "location": "50102",
@@ -2080,6 +2055,19 @@
         10
       ],
       "weekday": 2
+    }
+  },
+  {
+    "title": "工程数学",
+    "teacher": "王婷",
+    "location": "50111",
+    "starts_at": "2026-11-25T08:00:00",
+    "ends_at": "2026-11-25T10:45:00",
+    "week": 13,
+    "event_type": "course",
+    "raw": {
+      "source": "manual_override",
+      "manual_note": "补课（教师口头通知）"
     }
   },
   {
