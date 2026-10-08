@@ -46,8 +46,17 @@ if [[ -n "${CLASH_CONFIG_YAML:-}" ]]; then
 elif [[ -n "${CLASH_SUBSCRIPTION_URL:-}" ]]; then
   echo "Downloading Mihomo subscription."
   if ! download_subscription "$CLASH_SUBSCRIPTION_URL"; then
-    echo "Unable to download Mihomo subscription."
-    exit 1
+    echo "Primary subscription endpoint failed; trying its embedded provider URL."
+    embedded_url="$(SUBSCRIPTION_URL="$CLASH_SUBSCRIPTION_URL" python -c '
+from os import environ
+from urllib.parse import parse_qs, urlparse
+
+print(parse_qs(urlparse(environ["SUBSCRIPTION_URL"]).query).get("url", [""])[0])
+')"
+    if [[ -z "$embedded_url" ]] || ! download_subscription "$embedded_url"; then
+      echo "Unable to download Mihomo subscription."
+      exit 1
+    fi
   fi
 else
   echo "No Mihomo configuration secret is configured."
