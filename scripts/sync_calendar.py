@@ -8,6 +8,7 @@ import json
 import os
 import re
 import sys
+import time as time_module
 import uuid
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta, timezone
@@ -170,7 +171,8 @@ def request_json(endpoint: str, label: str, params: dict[str, str]) -> Any:
     except ImportError as exc:
         raise SyncError("Missing dependency: requests. Run `pip install -r requirements.txt`.") from exc
 
-    response = requests.get(
+    response = request_with_retries(
+        requests.get,
         endpoint,
         params=params,
         headers={
@@ -186,6 +188,24 @@ def request_json(endpoint: str, label: str, params: dict[str, str]) -> Any:
         return response.json()
     except ValueError as exc:
         raise SyncError(f"{label} did not return JSON. First 200 chars: {text[:200]!r}") from exc
+
+
+def request_with_retries(request: Any, endpoint: str, **kwargs: Any) -> Any:
+    try:
+        import requests
+    except ImportError as exc:
+        raise SyncError("Missing dependency: requests. Run `pip install -r requirements.txt`.") from exc
+
+    for retry, delay in enumerate((1, 2, 4), start=1):
+        try:
+            return request(endpoint, **kwargs)
+        except (requests.exceptions.SSLError, requests.exceptions.ConnectionError, requests.exceptions.Timeout) as exc:
+            print(f"warning: network request failed (attempt {retry}/4): {type(exc).__name__}", file=sys.stderr)
+            time_module.sleep(delay)
+    try:
+        return request(endpoint, **kwargs)
+    except (requests.exceptions.SSLError, requests.exceptions.ConnectionError, requests.exceptions.Timeout) as exc:
+        raise SyncError(f"Network request failed after 3 retries: {type(exc).__name__}") from exc
 
 
 def flatten_dicts(value: Any) -> list[dict[str, Any]]:
@@ -480,7 +500,7 @@ class QiangzhiAppClient:
         for method in ("get", "post"):
             request = getattr(self.session, method)
             kwargs = {"params": params} if method == "get" else {"data": params}
-            response = request(endpoint, headers=headers, timeout=30, **kwargs)
+            response = request_with_retries(request, endpoint, headers=headers, timeout=30, **kwargs)
             try:
                 return self._json_response(response, f"{label} {method.upper()}")
             except SyncError as exc:
@@ -506,7 +526,11 @@ async def fetch_web_pages_with_browser(settings: Settings) -> BrowserFetchResult
         raise SyncError("Missing dependency: playwright. Run `pip install -r requirements.txt`.") from exc
 
     async with async_playwright() as playwright:
-        browser = await playwright.chromium.launch(headless=True)
+        proxy_url = env("HTTPS_PROXY", env("HTTP_PROXY"))
+        browser = await playwright.chromium.launch(
+            headless=True,
+            proxy={"server": proxy_url} if proxy_url else None,
+        )
         page = await browser.new_page(
             user_agent=(
                 "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -515,7 +539,7 @@ async def fetch_web_pages_with_browser(settings: Settings) -> BrowserFetchResult
             locale="zh-CN",
         )
         try:
-            await page.goto(LOGIN_ENTRY_URL, wait_until="domcontentloaded", timeout=60000)
+            await goto_with_retries(page, LOGIN_ENTRY_URL, "login page")
             if "authserver/login" in page.url:
                 await page.fill("#username", settings.username)
                 await page.fill("#password", settings.password)
@@ -524,7 +548,7 @@ async def fetch_web_pages_with_browser(settings: Settings) -> BrowserFetchResult
                 await page.wait_for_timeout(2000)
             if "authserver/login" in page.url:
                 raise SyncError("Browser login stayed on the unified-auth login page.")
-            await page.goto(build_timetable_url(settings), wait_until="domcontentloaded", timeout=60000)
+            await goto_with_retries(page, build_timetable_url(settings), "timetable page")
             try:
                 await page.wait_for_selector("#timetable", timeout=60000)
             except Exception as exc:
@@ -535,7 +559,7 @@ async def fetch_web_pages_with_browser(settings: Settings) -> BrowserFetchResult
             if settings.include_exams:
                 for exam_url in settings.exam_urls:
                     try:
-                        await page.goto(exam_url, wait_until="domcontentloaded", timeout=60000)
+                        await goto_with_retries(page, exam_url, "exam page")
                         content = await page.content()
                         if looks_like_exam_page(content):
                             exam_html = content
@@ -547,6 +571,23 @@ async def fetch_web_pages_with_browser(settings: Settings) -> BrowserFetchResult
             return BrowserFetchResult(timetable_html=timetable_html, exam_html=exam_html)
         finally:
             await browser.close()
+
+
+async def goto_with_retries(page: Any, url: str, label: str) -> None:
+    transient_markers = ("ERR_CONNECTION_RESET", "ERR_CONNECTION_TIMED_OUT", "ERR_TIMED_OUT", "ERR_SSL")
+    for retry, delay in enumerate((1, 2, 4), start=1):
+        try:
+            await page.goto(url, wait_until="domcontentloaded", timeout=60000)
+            return
+        except Exception as exc:
+            if not any(marker in str(exc) for marker in transient_markers):
+                raise
+            print(f"warning: {label} navigation failed (attempt {retry}/4): {type(exc).__name__}", file=sys.stderr)
+            await asyncio.sleep(delay)
+    try:
+        await page.goto(url, wait_until="domcontentloaded", timeout=60000)
+    except Exception as exc:
+        raise SyncError(f"{label} navigation failed after 3 retries: {type(exc).__name__}") from exc
 
 
 def is_hidden_tag(tag: Any) -> bool:
