@@ -192,6 +192,11 @@ for delay in 1 2 4; do
           --write-out '%{http_code} %{time_total}\n' --output /dev/null "$PROXY_TARGET_URL" > "$work_dir/target.metrics" 2>/dev/null; then
           read -r target_status target_elapsed < "$work_dir/target.metrics"
           echo "Target diagnostic check returned HTTP $target_status in ${target_elapsed}s."
+          if [[ "$target_status" =~ ^[23][0-9][0-9]$ ]]; then
+            echo "Target is reachable through the current proxy egress."
+            write_output "proxy=$proxy_url"
+            exit 0
+          fi
         else
           echo "Target diagnostic check failed after ${delay}s backoff."
         fi
