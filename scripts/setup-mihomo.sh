@@ -162,14 +162,14 @@ for delay in 1 2 4; do
 
     metrics_file="$work_dir/egress.txt"
     if curl --fail --silent --show-error --noproxy '' --proxy "$proxy_url" --connect-timeout 8 --max-time 20 \
-      --write-out '%{http_code} %{time_total}' --output "$metrics_file" https://ipinfo.io/country > "$work_dir/egress.metrics" 2>/dev/null; then
+      --write-out '%{http_code} %{time_total}\n' --output "$metrics_file" https://ipinfo.io/country > "$work_dir/egress.metrics" 2>/dev/null; then
       country="$(tr -d '[:space:]' < "$metrics_file")"
       read -r status elapsed < "$work_dir/egress.metrics"
       if [[ "$status" == "200" && "$country" == "CN" ]]; then
         echo "Proxy egress check succeeded: HTTP $status in ${elapsed}s; region=CN."
         if [[ -n "${PROXY_TARGET_URL:-}" ]]; then
           if curl --silent --show-error --noproxy '' --proxy "$proxy_url" --connect-timeout 8 --max-time 20 \
-            --write-out '%{http_code} %{time_total}' --output /dev/null "$PROXY_TARGET_URL" > "$work_dir/target.metrics" 2>/dev/null; then
+            --write-out '%{http_code} %{time_total}\n' --output /dev/null "$PROXY_TARGET_URL" > "$work_dir/target.metrics" 2>/dev/null; then
             read -r target_status target_elapsed < "$work_dir/target.metrics"
             if [[ "$target_status" =~ ^[23][0-9][0-9]$ ]]; then
               echo "Target reachability check succeeded: HTTP $target_status in ${target_elapsed}s."
