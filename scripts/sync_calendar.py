@@ -543,13 +543,15 @@ async def fetch_web_pages_with_browser(settings: Settings) -> BrowserFetchResult
         try:
             await goto_with_retries(page, LOGIN_ENTRY_URL, "login page")
             if "authserver/login" in page.url:
-                await page.fill("#username", settings.username)
-                await page.fill("#password", settings.password)
-                await page.click('button[type="submit"]', no_wait_after=True)
+                login_form = page.locator("#casLoginForm")
+                await login_form.locator("#username").fill(settings.username)
+                await login_form.locator("#password").fill(settings.password)
+                await login_form.get_by_role("button", name="登录").click(no_wait_after=True)
                 await page.wait_for_load_state("domcontentloaded", timeout=60000)
                 await page.wait_for_timeout(2000)
             if "authserver/login" in page.url:
-                raise SyncError("Browser login stayed on the unified-auth login page.")
+                reason = await classify_unified_login_failure(page, settings)
+                raise SyncError(f"Browser login stayed on the unified-auth login page: {reason}.")
             await goto_with_retries(page, build_timetable_url(settings), "timetable page")
             try:
                 await page.wait_for_selector("#timetable", timeout=60000)
@@ -590,6 +592,21 @@ async def goto_with_retries(page: Any, url: str, label: str) -> None:
         await page.goto(url, wait_until="domcontentloaded", timeout=60000)
     except Exception as exc:
         raise SyncError(f"{label} navigation failed after 3 retries: {type(exc).__name__}") from exc
+
+
+async def classify_unified_login_failure(page: Any, settings: Settings) -> str:
+    try:
+        text = normalize_text(redact_sensitive_text(await page.locator("body").inner_text(), settings))
+    except Exception:
+        return "login_form_still_visible"
+
+    if any(marker in text for marker in ("用户名或密码错误", "账号或密码错误", "密码错误")):
+        return "credentials_rejected"
+    if any(marker in text for marker in ("验证码", "滑块", "人机验证")):
+        return "verification_required"
+    if any(marker in text for marker in ("账号已锁定", "账户已锁定", "账号已停用")):
+        return "account_unavailable"
+    return "login_form_still_visible"
 
 
 def is_hidden_tag(tag: Any) -> bool:
