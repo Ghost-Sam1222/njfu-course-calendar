@@ -1297,7 +1297,11 @@ def run(settings: Settings, raw_json: Optional[Path] = None) -> None:
             if pages.exam_html:
                 events.extend(exam_html_to_events(settings, pages.exam_html))
         except Exception as exc:
-            print(f"warning: browser timetable fetch failed, trying Qiangzhi app API: {exc}", file=sys.stderr)
+            print(
+                f"warning: browser timetable fetch failed ({browser_failure_category(exc)}); "
+                "trying Qiangzhi app API.",
+                file=sys.stderr,
+            )
             rows = QiangzhiAppClient(settings).fetch_term()
             events = course_rows_to_events(settings, rows)
     else:
@@ -1346,6 +1350,32 @@ def is_temporary_source_unavailable(exc: SyncError) -> bool:
     return any(marker in text for marker in markers)
 
 
+def browser_failure_category(exc: Exception) -> str:
+    text = str(exc)
+    if "Browser login stayed" in text:
+        return "unified_login_rejected"
+    if "Could not find #timetable" in text:
+        return "timetable_container_missing"
+    if "navigation failed" in text:
+        return "navigation_failed"
+    return type(exc).__name__
+
+
+def source_failure_category(exc: SyncError) -> str:
+    text = str(exc)
+    if "HTTP 403" in text or "access_forbidden" in text:
+        return "access_forbidden"
+    if "系统正在维护" in text or "出错页面" in text:
+        return "system_unavailable"
+    if "did not return JSON" in text:
+        return "non_json_response"
+    if "Timetable returned no events" in text:
+        return "empty_timetable"
+    if "Could not find #timetable" in text:
+        return "timetable_container_missing"
+    return "source_unavailable"
+
+
 def main() -> int:
     try:
         args = build_parser().parse_args()
@@ -1354,7 +1384,7 @@ def main() -> int:
         return 0
     except SyncError as exc:
         if parse_bool(env("SOFT_FAIL_ON_SOURCE_UNAVAILABLE"), default=True) and is_temporary_source_unavailable(exc):
-            print(f"warning: {exc}", file=sys.stderr)
+            print(f"warning: timetable source unavailable ({source_failure_category(exc)}).", file=sys.stderr)
             print("warning: source is temporarily unavailable; keeping the previously published calendar.")
             return 0
         print(f"error: {exc}", file=sys.stderr)
