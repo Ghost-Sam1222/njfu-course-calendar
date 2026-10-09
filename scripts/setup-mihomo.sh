@@ -40,6 +40,34 @@ check_no_proxy() {
   done
 }
 
+provider_is_ready() {
+  local status providers_file
+  providers_file="$work_dir/providers.json"
+  status="$(curl --silent --show-error --noproxy '*' --connect-timeout 3 --max-time 8 \
+    --output "$providers_file" --write-out '%{http_code}' \
+    http://127.0.0.1:9091/providers/proxies 2>/dev/null || true)"
+  [[ "$status" == "200" ]] || return 1
+
+  python - "$providers_file" <<'PY' >/dev/null
+import json
+import sys
+
+with open(sys.argv[1], encoding="utf-8") as handle:
+    payload = json.load(handle)
+
+providers = payload.get("providers", payload)
+if not isinstance(providers, dict):
+    raise SystemExit(1)
+
+loaded = sum(
+    len(provider.get("proxies", []))
+    for provider in providers.values()
+    if isinstance(provider, dict) and isinstance(provider.get("proxies"), list)
+)
+raise SystemExit(0 if loaded else 1)
+PY
+}
+
 if [[ -n "${CLASH_CONFIG_YAML:-}" ]]; then
   echo "Using Mihomo configuration from GitHub Secret."
   printf '%s\n' "$CLASH_CONFIG_YAML" > "$config_file"
@@ -66,6 +94,11 @@ fi
 if ! grep -Eq '^(proxies|proxy-providers|proxy-groups|mixed-port|port|socks-port):' "$config_file"; then
   echo "Mihomo configuration is not a Clash-compatible YAML file."
   exit 1
+fi
+
+uses_proxy_providers=false
+if grep -q '^proxy-providers:' "$config_file"; then
+  uses_proxy_providers=true
 fi
 
 tmp_config="$work_dir/config.normalized.yaml"
@@ -116,16 +149,26 @@ echo "Starting Mihomo local proxy."
 pid="$!"
 
 for delay in 1 2 4; do
+  sleep "$delay"
   if kill -0 "$pid" 2>/dev/null && ss -ltn 'sport = :7890' | grep -q ':7890'; then
+    if [[ "$uses_proxy_providers" == "true" ]]; then
+      if provider_is_ready; then
+        echo "Proxy provider load check succeeded."
+      else
+        echo "Proxy provider is not ready yet."
+        continue
+      fi
+    fi
+
     metrics_file="$work_dir/egress.txt"
-    if curl --fail --silent --show-error --proxy "$proxy_url" --connect-timeout 8 --max-time 20 \
+    if curl --fail --silent --show-error --noproxy '' --proxy "$proxy_url" --connect-timeout 8 --max-time 20 \
       --write-out '%{http_code} %{time_total}' --output "$metrics_file" https://ipinfo.io/country > "$work_dir/egress.metrics" 2>/dev/null; then
       country="$(tr -d '[:space:]' < "$metrics_file")"
       read -r status elapsed < "$work_dir/egress.metrics"
       if [[ "$status" == "200" && "$country" == "CN" ]]; then
         echo "Proxy egress check succeeded: HTTP $status in ${elapsed}s; region=CN."
         if [[ -n "${PROXY_TARGET_URL:-}" ]]; then
-          if curl --silent --show-error --proxy "$proxy_url" --connect-timeout 8 --max-time 20 \
+          if curl --silent --show-error --noproxy '' --proxy "$proxy_url" --connect-timeout 8 --max-time 20 \
             --write-out '%{http_code} %{time_total}' --output /dev/null "$PROXY_TARGET_URL" > "$work_dir/target.metrics" 2>/dev/null; then
             read -r target_status target_elapsed < "$work_dir/target.metrics"
             if [[ "$target_status" =~ ^[23][0-9][0-9]$ ]]; then
@@ -136,15 +179,19 @@ for delay in 1 2 4; do
             echo "Target reachability check returned HTTP $target_status in ${target_elapsed}s."
             exit 1
           fi
+          echo "Target reachability check failed after ${delay}s backoff."
+          continue
         else
           write_output "proxy=$proxy_url"
           exit 0
         fi
       fi
+      echo "Proxy egress check did not confirm a China mainland exit."
+    else
+      echo "Proxy egress check failed after ${delay}s backoff."
     fi
   fi
-  sleep "$delay"
 done
 
-echo "Mihomo proxy did not become usable after 3 retries."
+echo "Mihomo proxy was not usable after 3 retries."
 exit 1

@@ -73,7 +73,7 @@ Variables:
 - `CALENDAR_OVERRIDES_PATH`，默认 `data/calendar-overrides.json`。用于保留教务系统尚未反映的临时调课；可按课程名和原始开始时间取消、更新或新增单个日历事件。
 - `NO_PROXY`，可选。需要绕过代理的域名列表；不要包含 `jwxt.njfu.edu.cn`，否则工作流会在启动前拒绝执行，避免教务系统请求意外直连。
 
-配置 `CLASH_CONFIG_YAML` 或 `CLASH_SUBSCRIPTION_URL` 后，workflow 会在运行时将配置写入 Runner 临时目录，启动监听 `127.0.0.1:7890` 的 Mihomo，并通过代理检查中国大陆出口及教务系统连通性。订阅、节点配置、账号和请求头都不会写入仓库或日志。
+配置 `CLASH_CONFIG_YAML` 或 `CLASH_SUBSCRIPTION_URL` 后，workflow 会在运行时将配置写入 Runner 临时目录，启动监听 `127.0.0.1:7890` 的 Mihomo。使用含 `proxy-providers` 的完整配置时，workflow 还会确认 provider 已加载节点，再检查中国大陆出口及教务系统连通性。订阅、节点配置、账号和请求头都不会写入仓库或日志。
 
 工作流文件在 `.github/workflows/sync-calendar.yml`，默认每天北京时间 06:23 同步一次，推送代码和手动运行也会触发同步。
 
