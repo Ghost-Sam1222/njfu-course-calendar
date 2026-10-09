@@ -126,9 +126,9 @@ import sys
 
 assets = json.load(open(sys.argv[1], encoding="utf-8")).get("assets", [])
 patterns = (
-    r"mihomo-linux-amd64-v1-.*\\.gz$",
-    r"mihomo-linux-amd64-compatible-.*\\.gz$",
-    r"mihomo-linux-amd64.*\\.gz$",
+    r"^mihomo-linux-amd64-v1.*\.gz$",
+    r"^mihomo-linux-amd64-compatible-.*\.gz$",
+    r"^mihomo-linux-amd64.*\.gz$",
 )
 for pattern in patterns:
     asset = next((item for item in assets if re.search(pattern, item.get("name", ""))), None)
