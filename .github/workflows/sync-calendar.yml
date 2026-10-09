@@ -48,6 +48,7 @@ jobs:
       - name: Start Mihomo proxy
         id: mihomo
         if: steps.preflight.outputs.should_run == 'true' && (env.HAS_CLASH_CONFIG == 'true' || env.HAS_CLASH_SUBSCRIPTION == 'true')
+        continue-on-error: true
         env:
           CLASH_CONFIG_YAML: ${{ secrets.CLASH_CONFIG_YAML }}
           CLASH_SUBSCRIPTION_URL: ${{ secrets.CLASH_SUBSCRIPTION_URL }}
@@ -56,14 +57,18 @@ jobs:
           NODE_OPTIONS: --use-env-proxy
         run: bash scripts/setup-mihomo.sh
 
+      - name: Keep published calendar when proxy is unavailable
+        if: steps.preflight.outputs.should_run == 'true' && (env.HAS_CLASH_CONFIG == 'true' || env.HAS_CLASH_SUBSCRIPTION == 'true') && steps.mihomo.outcome == 'failure'
+        run: echo "Mihomo proxy is unavailable; leaving the published calendar unchanged."
+
       - name: Install dependencies
-        if: steps.preflight.outputs.should_run == 'true'
+        if: steps.preflight.outputs.should_run == 'true' && ((env.HAS_CLASH_CONFIG != 'true' && env.HAS_CLASH_SUBSCRIPTION != 'true') || steps.mihomo.outcome == 'success')
         run: |
           pip install -r requirements.txt
           python -m playwright install chromium
 
       - name: Generate iCalendar
-        if: steps.preflight.outputs.should_run == 'true'
+        if: steps.preflight.outputs.should_run == 'true' && ((env.HAS_CLASH_CONFIG != 'true' && env.HAS_CLASH_SUBSCRIPTION != 'true') || steps.mihomo.outcome == 'success')
         env:
           JW_BASE_URL: ${{ vars.JW_BASE_URL || 'https://jwxt.njfu.edu.cn' }}
           JW_USERNAME: ${{ secrets.JW_USERNAME }}
@@ -90,7 +95,7 @@ jobs:
         run: python scripts/sync_calendar.py
 
       - name: Commit changes
-        if: steps.preflight.outputs.should_run == 'true'
+        if: steps.preflight.outputs.should_run == 'true' && ((env.HAS_CLASH_CONFIG != 'true' && env.HAS_CLASH_SUBSCRIPTION != 'true') || steps.mihomo.outcome == 'success')
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
