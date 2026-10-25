@@ -1238,6 +1238,8 @@ def apply_calendar_overrides(settings: Settings, events: list[CourseEvent]) -> l
             ends_at = event.ends_at
             if isinstance(update.get("ends_at"), str):
                 ends_at = datetime.fromisoformat(update["ends_at"]).replace(tzinfo=event.ends_at.tzinfo)
+            if ends_at <= event.starts_at:
+                raise SyncError("Updated calendar override must end after it starts.")
             location = update.get("location", event.location)
             if not isinstance(location, str):
                 raise SyncError(f"Calendar override location must be text for {event.title}.")
