@@ -1311,6 +1311,11 @@ def run(settings: Settings, raw_json: Optional[Path] = None) -> None:
             raise SyncError(f"Unsupported JW_PROVIDER: {settings.provider}")
         rows = QiangzhiAppClient(settings).fetch_term()
         events = course_rows_to_events(settings, rows)
+    if not events:
+        raise SyncError(
+            f"Timetable returned no events for {settings.semester}. "
+            "Refusing to overwrite the published calendar."
+        )
     events = apply_makeup_day_map(settings, events)
     events = filter_excluded_dates(settings, events)
     events = apply_calendar_overrides(settings, events)
